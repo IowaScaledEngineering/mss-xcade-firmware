@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>ISE Block Signal Custom Config</title>
+  <link rel='stylesheet' href='config.css'>
+  <script src="core.js" defer></script>
+</head>
+<body>
+<div class='tabs-container'>
+  <div class='tabs-list'>
+    <button class='tab-btn active' data-tab='home-tab'>Basic Info</button>
+    <button class='tab-btn' data-tab='config-tab'>Configuration</button>
+    <button class='tab-btn' data-tab='status-tab'>Status</button>
+</div>
+
+  <div class='tab-content-container'>
+    <div class='tab-content active' id='home-tab'>
+	  %BASICCONFIG%
+    </div>
+  
+    <div class='tab-content' id='config-tab'>
+      <h3>Configuration</h3>
+      Double Crossover!
+      <button class='submit-btn' onclick='submitLogicConfig()'>Change Configuration</button>
+    </div>
+
+    <div class='tab-content' id='status-tab'>
+      <h3>Status</h3>
+      Double Crossover!
+    </div>
+
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+    /* --- SHARED CARD STYLES --- */
+    .control-card, .status-card, .signal-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; 
+    }
+
+    /* --- LEFT SIDE INFO --- */
+    .card-info-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 20px;
+        flex: 1; 
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        padding-top: 10px; 
+    }
+    .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 4px;
+    }
+    .card-desc {
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .current-config-line {
+        font-size: 13px;
+        color: #333;
+        margin-top: 6px;
+        font-weight: 500;
+    }
+
+    .warning-text {
+        font-size: 12px;
+        color: #d32f2f; 
+        margin-top: 8px;
+        line-height: 1.4;
+        background-color: #ffebee;
+        padding: 8px;
+        border-radius: 4px;
+        border-left: 3px solid #d32f2f;
+    }
+
+    /* Right Side: The KV Grid */
+    .kv-grid {
+        display: grid;
+        grid-template-columns: auto auto; /* Label column, Value column */
+        column-gap: 15px;
+        row-gap: 5px;
+        align-items: center;
+    }
+
+    /* The Label (Right aligned to be close to the value) */
+    .kv-key {
+        font-size: 11px;
+        font-weight: 700;
+        color: #95a5a6;
+        text-transform: uppercase;
+        text-align: right;
+    }
+
+    /* The Value */
+    .kv-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+        font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+        text-align: right;
+    }
+
+    /* --- STATUS MATRIX STYLES --- */
+    .status-matrix {
+        display: grid;
+        grid-template-columns: auto repeat(4, 35px); 
+        grid-template-rows: repeat(2, 35px);
+        gap: 4px;
+        align-items: center;
+    }
+    .matrix-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #555;
+        padding-right: 8px;
+        text-align: right;
+    }
+    .matrix-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        background-color: #e0e0e0;
+        color: #333;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .matrix-box.wireActive { background-color: #fd7702; color: white; border-color: #fd7702; }
+    .matrix-box.wireInactive { background-color: #003f7d; color: white; border-color: #003f7d; }
+
+    /* --- GPIO STYLES --- */
+    .gpio-grid {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap; 
+        justify-content: flex-end;
+        max-width: 100%;
+    }
+    .gpio-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 35px; 
+    }
+    .gpio-label-text {
+        font-size: 10px;
+        font-weight: 700;
+        color: #888;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+    .gpio-box {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* --- SENSOR STYLES --- */
+    .sensor-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 42px); 
+        gap: 6px;
+        justify-content: end; 
+    }
+    .sensor-box {
+        width: 100%; 
+        height: 35px;
+        font-size: 11px; 
+    }
+
+    /* --- CONTROL ACTIONS --- */
+    .control-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px; 
+        padding-top: 5px;
+    }
+    .vertical-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 5px;
+        min-width: 200px; 
+    }
+
+    /* --- TOGGLE SWITCH STYLES --- */
+    .toggle-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; 
+        padding-top: 5px;
+        min-width: 200px;
+    }
+
+    .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; 
+        gap: 15px;
+    }
+
+    .toggle-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Switch Component */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0; 
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px; width: 18px;
+        left: 3px; bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    input:checked + .slider { background-color: #007bff; }
+    input:checked + .slider:before { transform: translateX(20px); }
+    
+    .switch-center-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* --- INPUTS & BUTTONS --- */
+    .select-wrapper { position: relative; width: 100%; }
+    
+    .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        font-size: 14px;
+        padding: 8px 30px 8px 10px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #333;
+        outline: none;
+    }
+    
+    .custom-input {
+        width: 200px;
+        font-size: 14px;
+        padding: 8px 10px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #333;
+        outline: none;
+    }
+
+    .select-wrapper::after {
+        content: "▼";
+        font-size: 10px;
+        color: #666;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+    
+    .submit-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .submit-btn:hover { background-color: #0056b3; }
+    
+    .current-option {
+        background-color: #ffcdd2 !important; 
+        color: #b71c1c;
+        font-weight: bold;
+    }
+
+    /* --- MOBILE RESPONSIVENESS --- */
+    @media (max-width: 600px) {
+        .control-card, .status-card, .signal-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .card-info-col {
+            position: static;
+            padding-top: 0;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+        
+        .status-matrix, .control-actions, .vertical-actions, .signal-grid, .signal-grid-2, .gpio-grid, .sensor-grid, .toggle-list {
+            width: 100%;
+            justify-content: center; 
+        }
+
+        .control-actions { justify-content: space-between; }
+        .signal-grid { grid-template-columns: 1fr 1fr; }
+        .signal-grid .signal-select { width: 100%; }
+        .signal-grid-2 { grid-template-columns: auto 1fr; }
+        
+        .custom-input { width: 100%; }
+        .control-actions .submit-btn { width: auto; }
+        .toggle-row { width: 100%; }
+    }
+
+    /* --- PAGE LAYOUT STYLES --- */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    .tabs-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden; 
+    }
+    .tabs-list {
+      display: flex;
+      gap: 0; 
+      overflow-x: auto; 
+      border-bottom: 1px solid #e0e0e0;
+      background: #fafafa;
+      -webkit-overflow-scrolling: touch; 
+      scrollbar-width: none; 
+    }
+    .tabs-list::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 0 0 auto; 
+      background: none;
+      border: none;
+      padding: 15px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .tab-btn:hover { background-color: #f0f0f0; }
+    .tab-btn.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+      background-color: white;
+    }
+    .tab-content-container { padding: 20px; min-height: 200px; }
+    .tab-content { display: none; animation: fadeEffect 0.4s; }
+    .tab-content.active { display: block; }
+
+    @keyframes fadeEffect {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h3 { margin-top: 0; }

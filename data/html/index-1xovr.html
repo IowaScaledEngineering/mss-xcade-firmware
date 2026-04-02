@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>ISE Block Signal Custom Config</title>
+  <link rel='stylesheet' href='config.css'>
+  <script src="core.js" defer></script>
+</head>
+<body>
+<div class='tabs-container'>
+  <div class='tabs-list'>
+    <button class='tab-btn active' data-tab='home-tab'>Basic Info</button>
+    <button class='tab-btn' data-tab='config-tab'>Configuration</button>
+    <button class='tab-btn' data-tab='status-tab'>Status</button>
+  </div>
+
+  <div class='tab-content-container'>
+    <div class='tab-content active' id='home-tab'>
+	  %BASICCONFIG%
+    </div>
+  
+    <div class='tab-content' id='config-tab'>
+      <h3>Configuration</h3>
+        Single Crossover!
+      <input type="hidden" name="configName" value="1xovr">
+      <div class="control-card">
+        <div class="card-info-col">
+          <div class="card-title">Options</div>
+          <p class="card-desc">General behavior settings.</p>
+        </div>
+          
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <span class="toggle-label">Approach Lighting</span>
+            <label class="switch">
+              <input type="checkbox" name="approach_lighting">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Option B</span>
+            <label class="switch">
+              <input type="checkbox" name="option_b">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-card">
+        <div class="card-info-col">
+          <div class="card-title">Upload / Download Configuration</div>
+        </div>
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <button class='submit-btn' id="downloadConfig">Download Configuration</button>
+          </div>
+        </div>
+      </div>
+
+      <button class='submit-btn' id="saveConfig" onclick='submitConfig()'>Save Configuration</button>
+
+    </div>
+
+    <div class='tab-content' id='status-tab'>
+      <h3>Status</h3>
+        Single Crossover!
+    </div>
+</div>
+</body>
+</html>
