@@ -18,16 +18,21 @@ extern volatile bool signalConfNeedsRead;
 
 #define FILE_MAIN_CSS                   "/html/config.css"
 #define FILE_MAIN_JAVASCRIPT            "/html/core.js"
+#define FILE_MAIN_ISE_LOGO              "/html/ise.png"
 
 
 #define URL_MAIN                        "/index.html"
 #define URL_MAIN_CSS                    "/config.css"
 #define URL_MAIN_JAVASCRIPT             "/core.js"
+#define URL_MAIN_ISE_LOGO               "/ise.png"
 
 #define URL_API_SAVEBASICCONFIG         "/api/saveBasicConfig"
 #define URL_API_SAVELOGICCONFIG         "/api/saveConfig"
 #define URL_API_LOADLOGICCONFIG         "/api/loadConfig"
 #define URL_API_LOADSTATUS              "/api/getStatus"
+
+#define IP_ADDRESS_AP                   IPAddress(192, 168, 1, 1)
+#define IP_SUBNET_MASK_AP               IPAddress(255, 255, 255, 0)
 
 #define STRLN_FILENAME_BUFFER 64
 

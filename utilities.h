@@ -5,4 +5,6 @@
 
 void primeDebouncer(XCade &xcade);
 const char* resetReasonStringGet(int resetReason);
+void enableWifi(const char* networkName);
+void disableWifi();
 #endif

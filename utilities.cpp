@@ -1,4 +1,7 @@
+#include <Arduino.h>
 #include "utilities.h"
+#include <WiFi.h>
+#include "configuration.h"
 
 void primeDebouncer(XCade &xcade)
 {
@@ -8,6 +11,20 @@ void primeDebouncer(XCade &xcade)
     xcade.updateInputs();
     delay(20);
   }
+}
+
+void enableWifi(const char* networkName)
+{
+  Serial.printf("[SYS]: Starting WiFi - [%s]\n", networkName);
+  WiFi.mode(WIFI_AP);
+  WiFi.softAPConfig(IP_ADDRESS_AP, IP_ADDRESS_AP, IP_SUBNET_MASK_AP);
+  WiFi.softAP(networkName);
+}
+
+void disableWifi()
+{
+  Serial.printf("[SYS]: Terminating WiFi\n");
+  WiFi.mode(WIFI_OFF);
 }
 
 const char* resetReasonStringGet(int resetReason)

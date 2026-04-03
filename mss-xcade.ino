@@ -105,11 +105,7 @@ void setup()
 
   wifiEnabled = xcade.configSwitches.getSwitch(SWITCH_1_ENABLE_WIFI);
   if (wifiEnabled)
-  {
-    Serial.printf("[SYS]: Starting WiFi - [%s]\n", (const char*)masterConfig["name"]);
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP((const char*)masterConfig["name"]);
-  }
+    enableWifi((const char*)masterConfig["name"]);
 
   webserverStart();
 
@@ -147,16 +143,9 @@ void loop()
       wifiEnabled = xcade.configSwitches.getSwitch(SWITCH_1_ENABLE_WIFI);
 
       if (wifiEnabled)
-      {
-        Serial.printf("[SYS]: Starting WiFi - [%s]\n", (const char*)masterConfig["name"]);
-        WiFi.mode(WIFI_AP);
-        WiFi.softAP((const char*)masterConfig["name"]);
-      }
+        enableWifi((const char*)masterConfig["name"]);
       else
-      {
-        Serial.printf("[SYS]: Terminating WiFi\n");
-        WiFi.mode(WIFI_OFF);
-      }
+        disableWifi();
     }
 
     if (ledState)

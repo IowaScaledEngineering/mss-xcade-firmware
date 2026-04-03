@@ -15,6 +15,7 @@ void webserverSetup()
 {
   server.serveStatic(URL_MAIN_CSS, LittleFS, FILE_MAIN_CSS);
   server.serveStatic(URL_MAIN_JAVASCRIPT, LittleFS, FILE_MAIN_JAVASCRIPT);
+  server.serveStatic(URL_MAIN_ISE_LOGO, LittleFS, FILE_MAIN_ISE_LOGO);
 
   char indexFilename[STRLN_FILENAME_BUFFER];
   snprintf(indexFilename, sizeof(indexFilename), "/html/index-%s.html", (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);
@@ -92,7 +93,11 @@ void webserverSetup()
               </div>
           </div>
       </div>
-      <button class='submit-btn' onclick='submitBasicConfig()'>Change Configuration</button>)";
+      <button class='submit-btn' onclick='submitBasicConfig()'>Change Configuration</button>
+      
+      <div class='control-card' style='justify-content: center; align-items: center; padding: 25px;'>
+        <img src='ise.png' alt='ISE Electronics Made Easy' style='max-width: 100%; height: auto;'>
+      </div>)";
     }
     return html;
   });
