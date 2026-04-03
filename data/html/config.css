@@ -288,6 +288,71 @@
         font-weight: bold;
     }
 
+    /* --- SIGNAL CONFIG STYLES --- */
+    .signal-grid {
+        display: grid;
+        grid-template-columns: auto auto; 
+        gap: 8px 12px;
+        align-items: center;
+    }
+    .signal-grid-2 {
+        display: grid;
+        grid-template-columns: auto 1fr; 
+        gap: 8px 12px;
+        align-items: center;
+        min-width: 200px; 
+    }
+    .section-header {
+        grid-column: 1 / -1; 
+        background-color: #e9ecef;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #495057;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 10px;
+        margin-bottom: 2px;
+        border-left: 4px solid #007bff;
+    }
+    .section-header:first-child { margin-top: 0; }
+    .signal-pair { display: flex; gap: 6px; align-items: center; }
+    .col-header {
+        flex: 1; 
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .signal-pair .signal-select { width: 100%; min-width: 0; }
+    .signal-label {
+        text-align: right;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+        white-space: nowrap;
+    }
+    .signal-select {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 140px; 
+        font-size: 13px;
+        padding: 6px 20px 6px 8px; 
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #333;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 4px center;
+        background-size: 12px;
+    }
+
+
     /* --- MOBILE RESPONSIVENESS --- */
     @media (max-width: 600px) {
         .control-card, .status-card, .signal-card {

@@ -1,6 +1,8 @@
 #include "SignalLogic.h"
 
-void DiagnosticLogic::setup()
+extern XCade xcade;
+
+void DiagnosticLogic::setup(XCade* xcade)
 {
 
 }
@@ -15,7 +17,10 @@ void DiagnosticLogic::getStatusJson(JsonObject& root)
 
 }
 
-void DoubleCrossover::setup()
+void DiagnosticLogic::reconfigure(JsonDocument& signalConfig)
+{ }
+
+void DoubleCrossover::setup(XCade* xcade)
 {
 
 }
@@ -30,4 +35,6 @@ void DoubleCrossover::getStatusJson(JsonObject& root)
 
 }
 
+void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
+{ }
 

@@ -31,6 +31,19 @@ void webserverSetup()
     if (var == "BASICCONFIG")
     {
       html += R"(<h3>Basic Configuration</h3>
+      <div class="status-card">
+          <div class="card-info-col">
+              <div class="card-title">Module Identification</div>
+              <p class="card-desc">Iowa Scaled Engineering<br>Block Signal Custom Module</p>
+          </div>
+          
+          <div style="text-align: right; min-width: 100px;">
+              <div style="font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; margin-bottom: 4px;">Firmware</div>
+              <div style="font-size: 16px; font-weight: 600; color: #333;">)";
+      html += FIRMWARE_VERSION_STR;
+      html += R"(</div></div>
+      </div>
+
       <!-- Configuration Card - Module Name -->
       <div class='control-card warning-text'>
           <strong>Warning: Changing basic configuration will result the node restarting</strong>
@@ -62,13 +75,17 @@ void webserverSetup()
 
       for (uint32_t i = 0; i<signalLogicRegistry.getNumLogicModules(); i++)
       {
+        bool isCurrentlyRunning = (0 == strcmp(signalLogicRegistry.getShortName(i), (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]));
+
         html += " <option value='";
         html += signalLogicRegistry.getShortName(i);
-        if (0 == strcmp(signalLogicRegistry.getShortName(i), (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]))
+        if (isCurrentlyRunning)
           html += "' selected class='current-option'>";
         else
           html += "'>";
         html += signalLogicRegistry.getLongName(i);
+        if (isCurrentlyRunning)
+          html += " (Current)";
         html += "</option>\n";
       }
       html += R"(</select>

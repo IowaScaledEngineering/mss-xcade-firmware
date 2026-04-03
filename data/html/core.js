@@ -37,6 +37,75 @@ document.getElementById('downloadConfig').addEventListener('click', async () => 
   }
 });
 
+const fileInput = document.getElementById('jsonInput');
+const customBtn = document.getElementById('uploadConfig');
+
+// 1. When the visible button is clicked, "click" the hidden file input
+customBtn.addEventListener('click', () => {
+    fileInput.click();
+});
+
+// 2. When the user selects a file, the 'change' event fires automatically
+fileInput.addEventListener('change', async () => {
+    if (fileInput.files.length === 0) return;
+
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = async (e) => {
+        try {
+            const json = JSON.parse(e.target.result);
+            
+            // Upload logic
+            const response = await fetch('/api/saveConfig', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(json),
+            });
+
+            if (response.ok) {
+                //status.textContent = "Successfully uploaded: " + file.name;
+            } else {
+                throw new Error("Server error");
+            }
+        } catch (err) {
+            //status.textContent = "Error: Invalid JSON format.";
+            //status.style.color = "red";
+        } finally {
+            // Reset the input so the same file can be uploaded again if needed
+            fileInput.value = '';
+        }
+    };
+
+    reader.readAsText(file);
+});
+
+async function uploadData(data) {
+    try {
+        const response = await fetch('/api/saveConfig', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            document.getElementById('statusMessage').textContent = "Upload successful!";
+        } else {
+            throw new Error('Server responded with ' + response.status);
+        }
+    } catch (error) {
+        document.getElementById('statusMessage').textContent = "Upload failed: " + error.message;
+    }
+}
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   // Call the load function as soon as the page is ready
   loadConfiguration();

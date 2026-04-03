@@ -7,10 +7,15 @@ JsonDocument masterConfig;
 JsonDocument signalConfig;
 volatile bool signalConfNeedsRead = false;
 
+bool getJsonBool(JsonDocument& doc, const char* key, bool defaultVal)
+{
+  return (signalConfig[key].is<bool>() && signalConfig[key].as<bool>());
+}
+
 void readSignalConfig(const char* configName)
 {
   char signalConfigFilename[STRLN_FILENAME_BUFFER];
-  snprintf(signalConfigFilename, sizeof(signalConfigFilename), "/config-%s.html", configName);
+  snprintf(signalConfigFilename, sizeof(signalConfigFilename), "/config-%s.json", configName);
   File signalConfigFile = LittleFS.open(signalConfigFilename);
   deserializeJson(signalConfig, signalConfigFile);
   signalConfigFile.close();

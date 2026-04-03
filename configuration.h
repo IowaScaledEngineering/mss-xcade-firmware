@@ -7,6 +7,11 @@ extern JsonDocument masterConfig;
 extern JsonDocument signalConfig;
 extern volatile bool signalConfNeedsRead;
 
+#define SWITCH_7_FACTORY_RESET          7
+#define SWITCH_1_ENABLE_WIFI            1
+
+#define FIRMWARE_VERSION_STR            "0.0.1"
+
 #define MASTER_CONFIGURATION_FILENAME   "/config.json"
 #define MASTER_CONFIG_KEY_NODE_NAME     "name"
 #define MASTER_CONFIG_KEY_ACTIVE_CONFIG "activeConfig"
@@ -30,7 +35,7 @@ void readSignalConfig(const char* configName);
 void configFactoryReset();
 bool configLoadConfiguration(bool forceFactoryReset);
 void displayFileTree(const char* startingDirectory="/", uint32_t levels=0);
-
+bool getJsonBool(JsonDocument& doc, const char* key, bool defaultVal=false);
 
 
 #endif
