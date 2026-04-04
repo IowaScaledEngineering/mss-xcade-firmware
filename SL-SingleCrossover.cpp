@@ -202,8 +202,21 @@ void SingleCrossover::loop()
 
 }
 
-void SingleCrossover::getStatusJson(JsonObject& root)
-{
 
+void SingleCrossover::getStatusJson(JsonObject& statusResponse)
+{
+  // The JS on the other side is expecting things in the form of:
+  //  mss1a-s-in, mss1a-a-out, as booleans - true for active, false for inactive
+
+  // This is really, hideously not threadsafe
+  mssPortToStatusJson(statusResponse, xcade->mssPortA, "mss1a");
+  mssPortToStatusJson(statusResponse, xcade->mssPortB, "mss1b");
+  mssPortToStatusJson(statusResponse, xcade->mssPortC, "mss1c");
+  mssPortToStatusJson(statusResponse, xcade->mssPortD, "mss1d");
+
+  mssGPIOToJson(statusResponse, xcade->gpio, "gpio1", 2);
+  mssSensorsToJson(statusResponse, xcade->gpio, "sensor1", 10);
+
+  return;
 }
 

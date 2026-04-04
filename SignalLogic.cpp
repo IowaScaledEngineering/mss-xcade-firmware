@@ -18,7 +18,9 @@ void DiagnosticLogic::getStatusJson(JsonObject& root)
 }
 
 void DiagnosticLogic::reconfigure(JsonDocument& signalConfig)
-{ }
+{ 
+  
+}
 
 void DoubleCrossover::setup(XCade* xcade)
 {

@@ -25,8 +25,6 @@ void webserverSetup()
   if (!LittleFS.exists(indexFilename))
     snprintf(indexFilename, sizeof(indexFilename), "/html/index.html");
 
-
-
   server.serveStatic(URL_MAIN, LittleFS, indexFilename).setTemplateProcessor([](const String &var) -> String {
     String html;
     if (var == "BASICCONFIG")
@@ -189,13 +187,17 @@ void webserverSetup()
 
   AsyncCallbackJsonWebHandler* handler4 = new AsyncCallbackJsonWebHandler(URL_API_LOADSTATUS, [](AsyncWebServerRequest *request, JsonVariant &json) 
   {
+    AsyncJsonResponse *response = new AsyncJsonResponse();
     JsonObject jsonObj = json.as<JsonObject>();
+    JsonObject responseObj = response->getRoot();
+
     Serial.println("HTTP: API getStatus");
 
-/*    if (NULL != activeLogic)
-      activeLogic->getStatusJson();*/
+    if (NULL != activeLogic)
+      activeLogic->getStatusJson(responseObj);
 
-    request->send(200, "application/json", "{\"status\":\"ok\"}");
+    response->setLength();
+    request->send(response);
 
   });
   server.addHandler(handler4);
@@ -214,4 +216,9 @@ void webserverSetup()
 void webserverStart()
 {
   server.begin();
+}
+
+void webserverEnd()
+{
+  server.end();
 }

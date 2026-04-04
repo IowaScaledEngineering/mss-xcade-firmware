@@ -49,3 +49,102 @@ const char* resetReasonStringGet(int resetReason)
     default : return "No Idea";
   }
 }
+
+void mssGPIOToJson(JsonObject& statusResponse, GPIO &gpio, const char* gpioName, uint8_t maxBits)
+{
+  char buffer[32];
+
+  if (maxBits > 6)
+    maxBits = 6;
+
+  for (uint8_t i=1; i<maxBits+1; i++)
+  {
+    snprintf(buffer, sizeof(buffer), "%s-%d", gpioName, i);
+    statusResponse[buffer] = gpio.digitalRead(i);
+  }
+}
+
+void mssSensorsToJson(JsonObject& statusResponse, GPIO &gpio, const char* sensorName, uint8_t maxBits)
+{
+  char buffer[32];
+
+  if (maxBits > 10)
+    maxBits = 10;
+
+  for (uint8_t i=1; i<maxBits+1; i++)
+  {
+    snprintf(buffer, sizeof(buffer), "%s-%d", sensorName, i);
+    statusResponse[buffer] = gpio.digitalRead(i+GPIO_SENSOR_BASE-1);
+  }
+}
+
+void mssPortToStatusJson(JsonObject& statusResponse, MSSPort &port, const char* portName)
+{
+  bool S, A, AA, DA;
+  char buffer[32];
+  std::string statusText = "RX: ";
+
+  port.getRawInputs(&S, &A, &AA, &DA);
+
+  snprintf(buffer, sizeof(buffer), "%s-s-in", portName);
+  statusResponse[buffer] = S;
+  snprintf(buffer, sizeof(buffer), "%s-a-in", portName);
+  statusResponse[buffer] = A;
+  snprintf(buffer, sizeof(buffer), "%s-aa-in", portName);
+  statusResponse[buffer] = AA;
+  snprintf(buffer, sizeof(buffer), "%s-da-in", portName);
+  statusResponse[buffer] = DA;
+
+  switch(port.indicationReceivedGet())
+  {
+    case INDICATION_STOP:
+      statusText += "Stop";
+      break;
+    case INDICATION_APPROACH_DIVERGING:
+      statusText += "Approach Diverging";
+      break;
+    case INDICATION_APPROACH_DIVERGING_AA:
+      statusText += "Adv Approach Diverging";
+      break;
+    case INDICATION_ADVANCE_APPROACH:
+      statusText += "Advance Approach";
+      break;
+    case INDICATION_APPROACH:
+      statusText += "Approach";
+      break;
+    case INDICATION_CLEAR:
+      statusText += "Clear";
+      break;
+    default:
+      statusText += "Unknown";
+      break;
+  }
+
+
+  port.getRawOutputs(&S, &A, &AA, &DA);
+  snprintf(buffer, sizeof(buffer), "%s-s-out", portName);
+  statusResponse[buffer] = S;
+  snprintf(buffer, sizeof(buffer), "%s-a-out", portName);
+  statusResponse[buffer] = A;
+  snprintf(buffer, sizeof(buffer), "%s-aa-out", portName);
+  statusResponse[buffer] = AA;
+  snprintf(buffer, sizeof(buffer), "%s-da-out", portName);
+  statusResponse[buffer] = DA;
+
+  statusText +="<br/>TX: ";
+  if (S)  
+    statusText += "Stop";
+  else if (A && !DA)
+    statusText += "Approach";
+  else if (A && DA && AA)
+    statusText += "Adv Approach Diverging";
+  else if (A && DA && !AA)
+    statusText += "Approach Diverging";
+  else if (AA)
+    statusText += "Advance Approach";
+  else
+    statusText += "Clear";
+
+  snprintf(buffer, sizeof(buffer), "%s-statustxt", portName);
+  statusResponse[buffer] = statusText;
+}

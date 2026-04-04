@@ -1,106 +1,112 @@
-document.getElementById('downloadConfig').addEventListener('click', async () => {
-  try {
-    // 1. Fetch the data from your endpoint
-    const response = await fetch('/api/loadConfig');
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+var dlConfig = document.getElementById('downloadConfig');
+if (dlConfig)
+{
+  document.getElementById('downloadConfig').addEventListener('click', async () => {
+    try {
+      // 1. Fetch the data from your endpoint
+      const response = await fetch('/api/loadConfig');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // 2. Convert the JSON object to a String
+      const jsonString = JSON.stringify(data, null, 2);
+
+      // 3. Create a Blob from the JSON string
+      const blob = new Blob([jsonString], { type: 'application/json' });
+
+      // 4. Create a temporary URL for the Blob
+      const url = window.URL.createObjectURL(blob);
+
+      // 5. Create a hidden anchor element to trigger the download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'config.json'; // The default filename
+      
+      // Append to body, click it, and remove it
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // 6. Clean up the URL object to free up memory
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error('Failed to download config:', error);
+      alert('Error downloading configuration file.');
     }
-
-    const data = await response.json();
-
-    // 2. Convert the JSON object to a String
-    const jsonString = JSON.stringify(data, null, 2);
-
-    // 3. Create a Blob from the JSON string
-    const blob = new Blob([jsonString], { type: 'application/json' });
-
-    // 4. Create a temporary URL for the Blob
-    const url = window.URL.createObjectURL(blob);
-
-    // 5. Create a hidden anchor element to trigger the download
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'config.json'; // The default filename
-    
-    // Append to body, click it, and remove it
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // 6. Clean up the URL object to free up memory
-    window.URL.revokeObjectURL(url);
-
-  } catch (error) {
-    console.error('Failed to download config:', error);
-    alert('Error downloading configuration file.');
-  }
-});
+  });
+}
 
 const fileInput = document.getElementById('jsonInput');
 const customBtn = document.getElementById('uploadConfig');
 
-// 1. When the visible button is clicked, "click" the hidden file input
-customBtn.addEventListener('click', () => {
-    fileInput.click();
-});
+if (fileInput && customBtn)
+{
+    // 1. When the visible button is clicked, "click" the hidden file input
+  customBtn.addEventListener('click', () => {
+      fileInput.click();
+  });
 
-// 2. When the user selects a file, the 'change' event fires automatically
-fileInput.addEventListener('change', async () => {
-    if (fileInput.files.length === 0) return;
+  // 2. When the user selects a file, the 'change' event fires automatically
+  fileInput.addEventListener('change', async () => {
+      if (fileInput.files.length === 0) return;
 
 
-    const file = fileInput.files[0];
-    const reader = new FileReader();
+      const file = fileInput.files[0];
+      const reader = new FileReader();
 
-    reader.onload = async (e) => {
-        try {
-            const json = JSON.parse(e.target.result);
-            
-            // Upload logic
-            const response = await fetch('/api/saveConfig', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(json),
-            });
+      reader.onload = async (e) => {
+          try {
+              const json = JSON.parse(e.target.result);
+              
+              // Upload logic
+              const response = await fetch('/api/saveConfig', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(json),
+              });
 
-            if (response.ok) {
-                //status.textContent = "Successfully uploaded: " + file.name;
-            } else {
-                throw new Error("Server error");
-            }
-        } catch (err) {
-            //status.textContent = "Error: Invalid JSON format.";
-            //status.style.color = "red";
-        } finally {
-            // Reset the input so the same file can be uploaded again if needed
-            fileInput.value = '';
-        }
-    };
+              if (response.ok) {
+                  //status.textContent = "Successfully uploaded: " + file.name;
+              } else {
+                  throw new Error("Server error");
+              }
+          } catch (err) {
+              //status.textContent = "Error: Invalid JSON format.";
+              //status.style.color = "red";
+          } finally {
+              // Reset the input so the same file can be uploaded again if needed
+              fileInput.value = '';
+          }
+      };
 
-    reader.readAsText(file);
-});
+      reader.readAsText(file);
+  });
 
-async function uploadData(data) {
-    try {
-        const response = await fetch('/api/saveConfig', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+  async function uploadData(data) {
+      try {
+          const response = await fetch('/api/saveConfig', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+          });
 
-        if (response.ok) {
-            document.getElementById('statusMessage').textContent = "Upload successful!";
-        } else {
-            throw new Error('Server responded with ' + response.status);
-        }
-    } catch (error) {
-        document.getElementById('statusMessage').textContent = "Upload failed: " + error.message;
-    }
+          if (response.ok) {
+              document.getElementById('statusMessage').textContent = "Upload successful!";
+          } else {
+              throw new Error('Server responded with ' + response.status);
+          }
+      } catch (error) {
+          document.getElementById('statusMessage').textContent = "Upload failed: " + error.message;
+      }
+  }
 }
-
 
 
 

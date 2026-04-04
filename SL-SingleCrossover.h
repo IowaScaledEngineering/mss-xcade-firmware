@@ -3,6 +3,7 @@
 
 #include "SignalLogic.h"
 #include "configuration.h"
+#include "utilities.h"
 
 class SingleCrossover : public SignalLogic
 {
@@ -10,7 +11,7 @@ class SingleCrossover : public SignalLogic
     void setup(XCade* xcade) override;
     void loop() override;
     void reconfigure(JsonDocument& signalConfig) override;
-    void getStatusJson(JsonObject& root) override;
+    void getStatusJson(JsonObject& statusResponse) override;
     static inline const char* shortName = "1xovr";
     static inline const char* longName = "Single Crossover";
     

@@ -105,9 +105,10 @@ void setup()
 
   wifiEnabled = xcade.configSwitches.getSwitch(SWITCH_1_ENABLE_WIFI);
   if (wifiEnabled)
+  {
     enableWifi((const char*)masterConfig["name"]);
-
-  webserverStart();
+    webserverStart();
+  }
 
   if (nullptr != activeLogic)
   {
@@ -143,9 +144,15 @@ void loop()
       wifiEnabled = xcade.configSwitches.getSwitch(SWITCH_1_ENABLE_WIFI);
 
       if (wifiEnabled)
+      {
         enableWifi((const char*)masterConfig["name"]);
+        webserverStart();
+      }
       else
+      {
         disableWifi();
+        webserverEnd();
+      }
     }
 
     if (ledState)
