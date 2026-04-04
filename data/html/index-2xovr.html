@@ -13,7 +13,7 @@
     <button class='tab-btn active' data-tab='home-tab'>Basic Info</button>
     <button class='tab-btn' data-tab='config-tab'>Configuration</button>
     <button class='tab-btn' data-tab='status-tab'>Status</button>
-</div>
+  </div>
 
   <div class='tab-content-container'>
     <div class='tab-content active' id='home-tab'>
@@ -21,18 +21,607 @@
     </div>
   
     <div class='tab-content' id='config-tab'>
-      <h3>Configuration</h3>
-      Double Crossover!
-      <button class='submit-btn' onclick='submitLogicConfig()'>Change Configuration</button>
+      <h3>Double Crossover Configuration</h3>
+      <input type="hidden" name="configName" value="2xovr">
+
+      <div class="control-card">
+        <div class="card-info-col">
+          <div class="card-title">Options</div>
+          <p class="card-desc">General behavior settings.</p>
+        </div>
+          
+        <div class="toggle-list">
+          <div class="toggle-row">
+            <span class="toggle-label">Approach Lighting</span>
+            <label class="switch">
+              <input type="checkbox" name="approach-lighting">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">2 Block Apprch Lt</span>
+            <label class="switch">
+              <input type="checkbox" name="two-block-approach">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Compact Double Crossover</span>
+            <label class="switch">
+              <input type="checkbox" name="compact-xover">
+              <span class="slider"></span>
+            </label>
+          </div>          
+          <div class="toggle-row">
+            <span class="toggle-label">Invert Turnout 1 Input</span>
+            <label class="switch">
+              <input type="checkbox" name="t1-invert">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Invert Turnout 2 Input</span>
+            <label class="switch">
+              <input type="checkbox" name="t2-invert">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Invert Turnout 3 Input</span>
+            <label class="switch">
+              <input type="checkbox" name="t3-invert">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Invert Turnout 4 Input</span>
+            <label class="switch">
+              <input type="checkbox" name="t4-invert">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="signal-card">
+        <div class="card-info-col">
+            <div class="card-title">Signal A</div>
+            <p class="card-desc">Double head (2-Head) definition.</p>
+        </div>
+
+        <div class="signal-grid-2">
+            <div class="section-header">Main Route</div>
+            <div></div> 
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-clr-u"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-clr-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-nor-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-nor-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            
+            <div class="section-header">Diverging Route</div>
+            <div></div>
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-clr-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-clr-l"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1A-div-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+
+            <div class="section-header" style="margin-top: 15px;">Hardware Settings</div>
+            <div></div> <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+
+            <label class="signal-label">Searchlight Heads</label>
+            <div class="signal-pair">
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1A-searchlight-u">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1A-searchlight-l">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+
+      <div class="signal-card">
+        <div class="card-info-col">
+            <div class="card-title">Signal B</div>
+            <p class="card-desc">Double head (2-Head) definition.</p>
+        </div>
+
+        <div class="signal-grid-2">
+            <div class="section-header">Main Route</div>
+            <div></div> 
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-clr-u"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-clr-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-nor-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-nor-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+
+            <div class="section-header">Diverging Route</div>
+            <div></div>
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-clr-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-clr-l"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1B-div-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1B-div-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <div class="section-header" style="margin-top: 15px;">Hardware Settings</div>
+            <div></div> <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            
+            <label class="signal-label">Searchlight Heads</label>
+            <div class="signal-pair">
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1B-searchlight-u">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1B-searchlight-l">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="card-info-col">
+            <div class="card-title">Signal C</div>
+            <p class="card-desc">Double head (2-Head) definition.</p>
+        </div>
+
+        <div class="signal-grid-2">
+            <div class="section-header">Main Route</div>
+            <div></div> 
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-clr-u"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-clr-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-nor-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-nor-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+
+            <div class="section-header">Diverging Route</div>
+            <div></div>
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-clr-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-clr-l"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1C-div-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1C-div-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <div class="section-header" style="margin-top: 15px;">Hardware Settings</div>
+            <div></div> <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            
+            <label class="signal-label">Searchlight Heads</label>
+            <div class="signal-pair">
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1C-searchlight-u">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1C-searchlight-l">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="card-info-col">
+            <div class="card-title">Signal D</div>
+            <p class="card-desc">Double head (2-Head) definition.</p>
+        </div>
+
+        <div class="signal-grid-2">
+            <div class="section-header">Main Route</div>
+            <div></div> 
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-clr-u"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-clr-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-nor-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-nor-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <div class="section-header">Diverging Route</div>
+            <div></div>
+            <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>
+            <label class="signal-label">Clear</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-clr-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-clr-l"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Adv. App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">App. Div.</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Approach</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+            <label class="signal-label">Stop</label>
+            <div class="signal-pair">
+                <select class="signal-select" name="sig1D-div-stop-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1D-div-stop-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+            </div>
+
+            <div class="section-header" style="margin-top: 15px;">Hardware Settings</div>
+            <div></div> <div class="signal-pair" style="margin-bottom: 2px;">
+                <span class="col-header">Upper</span><span class="col-header">Lower</span>
+            </div>            
+            
+            <label class="signal-label">Searchlight Heads</label>
+            <div class="signal-pair">
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1D-searchlight-u">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-center-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" name="sig1D-searchlight-l">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="control-card">
+        <div class="card-info-col">
+          <div class="card-title">Save/Restore Configuration</div>
+          <p class="card-desc">Import or export settings as file</p>
+        </div>
+        <div class="vertical-actions">
+          <button class="submit-btn" id="downloadConfig">Download</button>
+          <button class="submit-btn" id="uploadConfig">Upload</button>
+          <input type="file" id="jsonInput" accept=".json" style="display: none;">
+        </div>
+      </div>
+      <button class='submit-btn' id="saveConfig" onclick='submitConfig()'>Save Configuration</button>
     </div>
 
     <div class='tab-content' id='status-tab'>
       <h3>Status</h3>
-      Double Crossover!
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">MSS Port 1.A</div>
+          <p class="card-desc" id="mss1a-statustxt">RX: Unknown<br>TX: Unknown</p>
+        </div>
+        <div class="status-matrix">
+          <div class="matrix-label">IN</div>
+          <div id="mss1a-s-in"  class="matrix-box">S</div>
+          <div id="mss1a-a-in"  class="matrix-box">A</div>
+          <div id="mss1a-aa-in" class="matrix-box">AA</div>
+          <div id="mss1a-da-in" class="matrix-box">DA</div>
+
+          <div class="matrix-label">OUT</div>
+          <div id="mss1a-s-out"  class="matrix-box">S</div>
+          <div id="mss1a-a-out"  class="matrix-box">A</div>
+          <div id="mss1a-aa-out" class="matrix-box">AA</div>
+          <div id="mss1a-da-out" class="matrix-box">DA</div>
+        </div>
+  		</div>
+
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">MSS Port 1.B</div>
+          <p class="card-desc" id="mss1b-statustxt">RX: Unknown<br>TX: Unknown</p>
+        </div>
+        <div class="status-matrix">
+          <div class="matrix-label">IN</div>
+          <div id="mss1b-s-in"  class="matrix-box">S</div>
+          <div id="mss1b-a-in"  class="matrix-box">A</div>
+          <div id="mss1b-aa-in" class="matrix-box">AA</div>
+          <div id="mss1b-da-in" class="matrix-box">DA</div>
+
+          <div class="matrix-label">OUT</div>
+          <div id="mss1b-s-out"  class="matrix-box">S</div>
+          <div id="mss1b-a-out"  class="matrix-box">A</div>
+          <div id="mss1b-aa-out" class="matrix-box">AA</div>
+          <div id="mss1b-da-out" class="matrix-box">DA</div>
+        </div>
+  		</div>
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">MSS Port 1.C</div>
+          <p class="card-desc" id="mss1c-statustxt">RX: Unknown<br>TX: Unknown</p>
+        </div>
+        <div class="status-matrix">
+          <div class="matrix-label">IN</div>
+          <div id="mss1c-s-in"  class="matrix-box">S</div>
+          <div id="mss1c-a-in"  class="matrix-box">A</div>
+          <div id="mss1c-aa-in" class="matrix-box">AA</div>
+          <div id="mss1c-da-in" class="matrix-box">DA</div>
+
+          <div class="matrix-label">OUT</div>
+          <div id="mss1c-s-out"  class="matrix-box">S</div>
+          <div id="mss1c-a-out"  class="matrix-box">A</div>
+          <div id="mss1c-aa-out" class="matrix-box">AA</div>
+          <div id="mss1c-da-out" class="matrix-box">DA</div>
+        </div>
+  		</div>
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">MSS Port 1.D</div>
+          <p class="card-desc" id="mss1d-statustxt">RX: Unknown<br>TX: Unknown</p>
+        </div>
+        <div class="status-matrix">
+          <div class="matrix-label">IN</div>
+          <div id="mss1d-s-in"  class="matrix-box">S</div>
+          <div id="mss1d-a-in"  class="matrix-box">A</div>
+          <div id="mss1d-aa-in" class="matrix-box">AA</div>
+          <div id="mss1d-da-in" class="matrix-box">DA</div>
+
+          <div class="matrix-label">OUT</div>
+          <div id="mss1d-s-out"  class="matrix-box">S</div>
+          <div id="mss1d-a-out"  class="matrix-box">A</div>
+          <div id="mss1d-aa-out" class="matrix-box">AA</div>
+          <div id="mss1d-da-out" class="matrix-box">DA</div>
+        </div>
+  		</div>
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">GPIO Status</div>
+          <p class="card-desc">Physical pin states (orange is +5V)</p>
+        </div>
+        
+        <div class="gpio-grid">
+          <div class="gpio-col"><span class="gpio-label-text">IN</span><div class="matrix-box gpio-box" id="gpio1-1">1.1</div></div>
+          <div class="gpio-col"><span class="gpio-label-text">IN</span><div class="matrix-box gpio-box" id="gpio1-2">1.2</div></div>
+          <div class="gpio-col"><span class="gpio-label-text">IN</span><div class="matrix-box gpio-box" id="gpio1-3">1.3</div></div>
+          <div class="gpio-col"><span class="gpio-label-text">IN</span><div class="matrix-box gpio-box" id="gpio1-4">1.4</div></div>
+          <div class="gpio-col"><span class="gpio-label-text">n/a</span><div class="matrix-box gpio-box" id="gpio1-5">1.5</div></div>
+          <div class="gpio-col"><span class="gpio-label-text">n/a</span><div class="matrix-box gpio-box" id="gpio1-6">1.6</div></div>
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="card-info-col">
+          <div class="card-title">Sensor Status</div>
+          <p class="card-desc">Occupancy detection (orange is active)</p>
+        </div>
+        
+        <div class="sensor-grid">
+          <div class="matrix-box sensor-box" id="sensor1-1">1.S1</div>
+          <div class="matrix-box sensor-box" id="sensor1-2">1.S2</div>
+          <div class="matrix-box sensor-box" id="sensor1-3">1.S3</div>
+          <div class="matrix-box sensor-box" id="sensor1-4">1.S4</div>
+          <div class="matrix-box sensor-box" id="sensor1-5">1.S5</div>
+          <div class="matrix-box sensor-box" id="sensor1-6">1.S6</div>
+          <div class="matrix-box sensor-box" id="sensor1-7">1.S7</div>
+          <div class="matrix-box sensor-box" id="sensor1-8">1.S8</div>
+          <div class="matrix-box sensor-box" id="sensor1-9">1.S9</div>
+          <div class="matrix-box sensor-box" id="sensor1-10">1.S10</div>
+        </div>
+      </div>
+
+
     </div>
-
-
-</div>
 </div>
 </body>
 </html>

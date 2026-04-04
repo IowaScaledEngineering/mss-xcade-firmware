@@ -30,7 +30,7 @@
 #include "utilities.h"
 
 #include "SL-SingleCrossover.h"
-
+#include "SL-DoubleCrossover.h"
 
 #define LOOP_UPDATE_TIME_MS 1000
 

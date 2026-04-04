@@ -22,6 +22,8 @@ class SignalLogic
 
 class DiagnosticLogic : public SignalLogic
 {
+  private:
+    XCade *xcade;
   public:
     void setup(XCade* xcade) override;
     void loop() override;
@@ -29,17 +31,6 @@ class DiagnosticLogic : public SignalLogic
     void reconfigure(JsonDocument& signalConfig) override;
     static inline const char* shortName = "none";
     static inline const char* longName = "Unconfigured";
-};
-
-class DoubleCrossover : public SignalLogic
-{
-  public:
-    void setup(XCade* xcade);
-    void loop();
-    void getStatusJson(JsonObject& statusResponse) override;
-    void reconfigure(JsonDocument& signalConfig) override;
-    static inline const char* shortName = "2xovr";
-    static inline const char* longName = "Double Crossover";
 };
 
 #endif
