@@ -11,7 +11,7 @@ void DiagnosticLogic::loop()
 {
   uint32_t currentTime = millis();
   static uint32_t lastReadTime = 0;  
-  static uint8_t aspect = 0;
+  static uint8_t aspect = 1;
   // Just change the lights every 2 seconds
 	if (!(((uint32_t)currentTime - lastReadTime) > 2000))
     return;

@@ -72,7 +72,7 @@ void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
 
   approachLighting = getJsonBool(signalConfig, "approach-lighting");
   twoBlockApproach = getJsonBool(signalConfig, "two-block-approach");
-  isCompactCrossover = getJsonBool(signalConfig, "t1-invert");
+  isCompactCrossover = getJsonBool(signalConfig, "compact-xover");
   t1Invert = getJsonBool(signalConfig, "t1-invert");
   t2Invert = getJsonBool(signalConfig, "t2-invert");
   t3Invert = getJsonBool(signalConfig, "t3-invert");

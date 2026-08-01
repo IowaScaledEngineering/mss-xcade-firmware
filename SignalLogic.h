@@ -18,6 +18,7 @@ class SignalLogic
     virtual void getStatusJson(JsonObject& statusResponse) = 0;
     static inline const char* shortName = "";
     static inline const char* longName = "";
+    static const uint32_t LOOP_UPDATE_TIME_MS = 50;
 };
 
 class DiagnosticLogic : public SignalLogic

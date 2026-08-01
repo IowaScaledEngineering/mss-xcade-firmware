@@ -31,6 +31,7 @@
 
 #include "SL-SingleCrossover.h"
 #include "SL-DoubleCrossover.h"
+#include "SL-CrossoverWithBranch.h"
 
 #define LOOP_UPDATE_TIME_MS 1000
 
@@ -53,6 +54,8 @@ void registerSignalLogic(SignalLogicRegistry &slr)
   signalLogicRegistry.registerType(DiagnosticLogic::shortName, DiagnosticLogic::longName, []() { return std::make_unique<DiagnosticLogic>(); });
   signalLogicRegistry.registerType(SingleCrossover::shortName, SingleCrossover::longName, []() { return std::make_unique<SingleCrossover>(); });
   signalLogicRegistry.registerType(DoubleCrossover::shortName, DoubleCrossover::longName, []() { return std::make_unique<DoubleCrossover>(); });
+  signalLogicRegistry.registerType(CrossoverWithBranch::shortName, CrossoverWithBranch::longName, []() { return std::make_unique<CrossoverWithBranch>(); });
+
 }
 
 void setup() 
