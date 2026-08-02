@@ -22,6 +22,11 @@ class SingleCrossover : public SignalLogic
     SignalMast signalMastC;
     SignalMast signalMastD;
     SignalRuleManager signalRuleManager;
+    DigitalDelay ir1ADelay;
+    DigitalDelay ir1BDelay;
+    DigitalDelay ir1CDelay;
+    DigitalDelay ir1DDelay;
+
     bool approachLighting;
     bool twoBlockApproach;
     bool t1Invert;

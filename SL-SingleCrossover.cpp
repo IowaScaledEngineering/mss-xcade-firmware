@@ -75,6 +75,13 @@ void SingleCrossover::reconfigure(JsonDocument& signalConfig)
   t2Invert = getJsonBool(signalConfig, "t2-invert");
   t1Invert = getJsonBool(signalConfig, "t1-invert");
 
+  uint32_t turnOffDelay = max(1000UL, (uint32_t)(1000.0 * getJsonFloat(signalConfig, "irdelay-off", 1.0)));
+  Serial.printf(" - Setting IR turn-off delay to %u ms\n", turnOffDelay);
+  ir1ADelay.setDelays(100, turnOffDelay);
+  ir1BDelay.setDelays(100, turnOffDelay);
+  ir1CDelay.setDelays(100, turnOffDelay);
+  ir1DDelay.setDelays(100, turnOffDelay);
+
   Serial.printf("Ending 1xovr reconfigure()\n");
 
 }
@@ -129,10 +136,10 @@ void SingleCrossover::loop()
   bool blockP1Occupancy = xcade->gpio.digitalRead(SENSOR_9_PIN);
   bool blockP2Occupancy = xcade->gpio.digitalRead(SENSOR_10_PIN);
 
-  bool irAOccupancy = xcade->gpio.digitalRead(SENSOR_2_PIN);
-  bool irBOccupancy = xcade->gpio.digitalRead(SENSOR_4_PIN);
-  bool irCOccupancy = xcade->gpio.digitalRead(SENSOR_6_PIN);
-  bool irDOccupancy = xcade->gpio.digitalRead(SENSOR_8_PIN);
+  bool irAOccupancy = ir1ADelay.update(xcade->gpio.digitalRead(SENSOR_2_PIN), currentTime);
+  bool irBOccupancy = ir1BDelay.update(xcade->gpio.digitalRead(SENSOR_4_PIN), currentTime);
+  bool irCOccupancy = ir1CDelay.update(xcade->gpio.digitalRead(SENSOR_6_PIN), currentTime);
+  bool irDOccupancy = ir1DDelay.update(xcade->gpio.digitalRead(SENSOR_8_PIN), currentTime);
 
   // Start with all signals and ports at stop.  All routes not valid are invalid
   signalMastA.setIndication(INDICATION_STOP);

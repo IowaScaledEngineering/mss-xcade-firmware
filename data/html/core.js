@@ -325,7 +325,22 @@ async function updateStatus() {
           // Use innerHTML to allow line breaks <br> sent from server
           element.innerHTML = value;
         } 
-        
+        else if (elementId.endsWith('-valuetxt'))
+        {
+          element.classList.remove('value-normal', 'value-reverse', 'value-red', 'value-green', 'value-yellow');
+          if (value === 'NORMAL') {
+            element.classList.add('value-normal');
+          } else if (value === 'REVERSE') {
+            element.classList.add('value-reverse');
+          } else if (value === 'RED' || value === 'F-RED') {
+            element.classList.add('value-red');
+          } else if (value === 'GRN' || value === 'F-GRN') {
+            element.classList.add('value-green');
+          } else if (value === 'YLW' || value === 'F-YLW') {
+            element.classList.add('value-yellow');
+          }
+          element.innerHTML = value;
+        }
         // METHOD 2: Color Toggling (Signal Boxes)
         // Default behavior for all other IDs (s-in, a-out, etc.)
         else {
@@ -360,4 +375,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
   });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Find all control-actions containers on the page
+    const actionContainers = document.querySelectorAll('.control-actions');
+
+    actionContainers.forEach(container => {
+        const slider = container.querySelector('input[type="range"]');
+        const numberBox = container.querySelector('input[type="number"]');
+
+        // Only bind if both a slider and number box exist in this container
+        if (slider && numberBox) {
+            
+            // 1. Slider -> Number Box
+            slider.addEventListener('input', function() {
+                // Check if step is decimal (e.g., "0.1") to determine formatting
+                const isDecimal = this.step && this.step.includes('.');
+                numberBox.value = isDecimal ? parseFloat(this.value).toFixed(1) : this.value;
+            });
+
+            // 2. Number Box -> Slider (typing)
+            numberBox.addEventListener('input', function() {
+                let val = parseFloat(this.value);
+                const min = parseFloat(this.min);
+                const max = parseFloat(this.max);
+
+                if (val < min) val = min;
+                if (val > max) val = max;
+                
+                if (!isNaN(val)) {
+                    slider.value = val;
+                }
+            });
+            
+            // 3. Number Box -> Slider (on blur / click away)
+            numberBox.addEventListener('blur', function() {
+                let val = parseFloat(this.value);
+                const min = parseFloat(this.min);
+                const max = parseFloat(this.max);
+
+                if (isNaN(val) || val < min) val = min;
+                if (val > max) val = max;
+
+                const isDecimal = this.step && this.step.includes('.');
+                this.value = isDecimal ? val.toFixed(1) : Math.round(val);
+                slider.value = val;
+            });
+        }
+    });
 });
