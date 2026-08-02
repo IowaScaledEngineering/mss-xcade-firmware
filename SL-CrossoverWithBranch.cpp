@@ -88,9 +88,6 @@ void CrossoverWithBranch::reconfigure(JsonDocument& signalConfig)
   t5Invert = getJsonBool(signalConfig, "t5-invert");
 
   uint32_t turnOffDelay = max(1000UL, (uint32_t)(1000.0 * getJsonFloat(signalConfig, "irdelay-off", 1.0)));
-
-  Serial.printf(" - Setting IR turn-off delay to %u ms\n", turnOffDelay);
-
   ir1ADelay.setDelays(100, turnOffDelay);
   ir1BDelay.setDelays(100, turnOffDelay);
   ir1CDelay.setDelays(100, turnOffDelay);
