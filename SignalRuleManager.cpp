@@ -203,6 +203,8 @@ const char* SignalRuleManager::getAspectStr(SignalAspect_t aspect) const {
 const char* SignalRuleManager::getDivStr(uint8_t divMask) const {
     if (divMask == SignalMast::DIVMASK_NOT_DIVERGING) return "NOR";
     if (divMask == SignalMast::DIVMASK_ALL_DIVERGING) return "DIV";
+    if (divMask == SignalMast::DIVMASK_DIV_NO_SLOW) return "DIV";
+    if (divMask == SignalMast::DIVMASK_DIV_SLOW_SPD) return "SLO";
     return "???";
 }
 

@@ -38,6 +38,13 @@ class CrossoverWithBranch : public SignalLogic
     bool t3Invert;
     bool t4Invert;
     bool t5Invert;
+
+    bool t1Thrown;
+    bool t2Thrown;
+    bool t3Thrown;
+    bool t4Thrown;
+    bool t5Thrown;
+
     static const uint32_t LOOP_UPDATE_TIME_MS = 50;
 };
 

@@ -78,6 +78,34 @@ void mssSensorsToJson(JsonObject& statusResponse, GPIO &gpio, const char* sensor
   }
 }
 
+void mssTurnoutToJson(JsonObject& statusResponse, const char* turnoutName, bool isThrown)
+{
+  char buffer[32];
+  snprintf(buffer, sizeof(buffer), "%s-valuetxt", turnoutName);
+  statusResponse[buffer] = isThrown?"REVERSE":"NORMAL";
+}
+
+
+void mssSignalHeadsToJson(JsonObject& statusResponse, const char* signalName, SignalHead* h1, SignalHead* h2, SignalHead* h3)
+{
+  char buffer[32];
+
+  if (NULL == h1)
+    return;
+  snprintf(buffer, sizeof(buffer), "%s-u-valuetxt", signalName);
+  statusResponse[buffer] = h1->getAspectText();
+
+  if (NULL == h2)
+    return;
+  snprintf(buffer, sizeof(buffer), "%s-l-valuetxt", signalName);
+  statusResponse[buffer] = h2->getAspectText();
+
+  if (NULL == h3)
+    return;
+  snprintf(buffer, sizeof(buffer), "%s-3-valuetxt", signalName);
+  statusResponse[buffer] = h3->getAspectText();
+}
+
 void mssPortToStatusJson(JsonObject& statusResponse, MSSPort &port, const char* portName)
 {
   bool S, A, AA, DA;

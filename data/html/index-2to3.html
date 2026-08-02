@@ -21,8 +21,8 @@
     </div>
   
     <div class='tab-content' id='config-tab'>
-      <h3>Lebanon Jct. Configuration</h3>
-      <input type="hidden" name="configName" value="ljunc">
+      <h3>Crossover w/Branch Configuration</h3>
+      <input type="hidden" name="configName" value="2to3">
 
       <div class="control-card">
         <div class="card-info-col">
@@ -84,6 +84,17 @@
         </div>
       </div>
 
+    <div class='control-card' id='card-irdelayoff'>
+        <div class='card-info-col'>
+            <label for='trigger-number' class='card-title'>IR Sensor Off Delay</label>
+            <p class='card-desc'>Turn off delay (sec)</p>
+        </div>
+        
+        <div class='control-actions'>
+            <input type="range" id="irdelayoff-slider" class="custom-slider" min="1.0" max="30.0" step="0.1" value="5.0">
+            <input type="number" id="irdelayoff-number" name="irdelay-off" class="custom-input" min="1.0" max="30.0" step="0.1" value="5.0" style="width: 80px; text-align: center;">
+        </div>
+    </div>
 
       <div class="signal-card">
         <div class="card-info-col">
@@ -135,28 +146,28 @@
             </div>
             <label class="signal-label">Clear</label>
             <div class="signal-pair">
-                <select class="signal-select" name="sig1A-div-clr-u"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
-                <select class="signal-select" name="sig1A-div-clr-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-clr-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-clr-l"><option value="G" selected>Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
             </div>
             <label class="signal-label">Adv. App.</label>
             <div class="signal-pair">
-                <select class="signal-select" name="sig1A-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
-                <select class="signal-select" name="sig1A-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aa-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aa-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
             </div>
             <label class="signal-label">Adv. App. Div.</label>
             <div class="signal-pair">
-                <select class="signal-select" name="sig1A-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
-                <select class="signal-select" name="sig1A-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-aad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY" selected>Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
             </div>
             <label class="signal-label">App. Div.</label>
             <div class="signal-pair">
-                <select class="signal-select" name="sig1A-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-ad-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
                 <select class="signal-select" name="sig1A-div-ad-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
             </div>
             <label class="signal-label">Approach</label>
             <div class="signal-pair">
-                <select class="signal-select" name="sig1A-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
-                <select class="signal-select" name="sig1A-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-a-u"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y">Yellow</option><option value="FY">Fl. Yellow</option><option value="R" selected>Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
+                <select class="signal-select" name="sig1A-div-a-l"><option value="G">Green</option><option value="FG">Fl. Green</option><option value="Y" selected>Yellow</option><option value="FY">Fl. Yellow</option><option value="R">Red</option><option value="FR">Fl. Red</option><option value="OFF">Off</option></select>
             </div>
             <label class="signal-label">Stop</label>
             <div class="signal-pair">
@@ -727,6 +738,36 @@
 
     <div class='tab-content' id='status-tab'>
       <h3>Status</h3>
+
+      <div class='status-card stacked'>
+            <div class='card-info-col'>
+                <div class='card-title'>Basic Status</div>
+                <p class='card-desc'>Currrent Turnout/Signal Status</p>
+            </div>
+            <div class='kv-grid'>
+                <div class='kv-key'>Turnout 1</div>
+                <div class='kv-value' id='to1-valuetxt'>UNKNOWN</div>
+                <div class='kv-key'>Turnout 2</div>
+                <div class='kv-value' id='to2-valuetxt'>UNKNOWN</div>
+                <div class='kv-key'>Turnout 3</div>
+                <div class='kv-value' id='to3-valuetxt'>UNKNOWN</div>
+                <div class='kv-key'>Turnout 4</div>
+                <div class='kv-value' id='to4-valuetxt'>UNKNOWN</div>
+                <div class='kv-key'>Turnout 5</div>
+                <div class='kv-value' id='to5-valuetxt'>UNKNOWN</div>
+                <div class='kv-key'>Signal 1.A</div>
+                <div class='kv-value'><span id='sig1A-u-valuetxt'>UNK</span> / <span id='sig1A-l-valuetxt'>UNK</span></div>
+                <div class='kv-key'>Signal 1.B</div>
+                <div class='kv-value'><span id='sig1B-u-valuetxt'>UNK</span> / <span id='sig1B-l-valuetxt'>UNK</span></div>
+                <div class='kv-key'>Signal 1.C</div>
+                <div class='kv-value'><span id='sig1C-u-valuetxt'>UNK</span> / <span id='sig1C-l-valuetxt'>UNK</span></div>
+                <div class='kv-key'>Signal 2.A</div>
+                <div class='kv-value'><span id='sig2A-u-valuetxt'>UNK</span> / <span id='sig2A-l-valuetxt'>UNK</span> / <span id='sig2A-3-valuetxt'>UNK</span></div>
+                <div class='kv-key'>Signal 2.B</div>
+                <div class='kv-value'><span id='sig2B-u-valuetxt'>UNK</span> / <span id='sig2B-l-valuetxt'>UNK</span> / <span id='sig2B-3-valuetxt'>UNK</span></div>
+            </div>
+        </div>
+
       <div class="status-card">
         <div class="card-info-col">
           <div class="card-title">MSS Port 1.A</div>
@@ -807,7 +848,7 @@
       <div class="status-card">
         <div class="card-info-col">
           <div class="card-title">MSS Port 2.B</div>
-          <p class="card-desc" id="mss2a-statustxt">RX: Unknown<br>TX: Unknown</p>
+          <p class="card-desc" id="mss2b-statustxt">RX: Unknown<br>TX: Unknown</p>
         </div>
         <div class="status-matrix">
           <div class="matrix-label">IN</div>

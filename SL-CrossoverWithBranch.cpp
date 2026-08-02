@@ -8,7 +8,7 @@
 
 void CrossoverWithBranch::reconfigure(JsonDocument& signalConfig)
 {
-  Serial.printf("Starting CrossoverWithBranch reconfigure()\n");
+  Serial.printf("Starting Crossover w/Branch reconfigure()\n");
 
   // Make sure all five signal masts are registered with the rule manager
   signalRuleManager.registerSignal(ID_SIGNAL_1A);
@@ -87,7 +87,17 @@ void CrossoverWithBranch::reconfigure(JsonDocument& signalConfig)
   t4Invert = getJsonBool(signalConfig, "t4-invert");
   t5Invert = getJsonBool(signalConfig, "t5-invert");
 
-  Serial.printf("Ending Lebanon Junction reconfigure()\n");
+  uint32_t turnOffDelay = max(1000UL, (uint32_t)(1000.0 * getJsonFloat(signalConfig, "irdelay-off", 1.0)));
+
+  Serial.printf(" - Setting IR turn-off delay to %u ms\n", turnOffDelay);
+
+  ir1ADelay.setDelays(100, turnOffDelay);
+  ir1BDelay.setDelays(100, turnOffDelay);
+  ir1CDelay.setDelays(100, turnOffDelay);
+  ir2ADelay.setDelays(100, turnOffDelay);
+  ir2BDelay.setDelays(100, turnOffDelay);
+
+  Serial.printf("Ending Crossover w/Branch reconfigure()\n");
 
 }
 
@@ -116,11 +126,11 @@ void CrossoverWithBranch::loop()
   // This is a little screwy, because the logic was all written initially with normal being low and
   //  thrown being open/high.  I'm reversing that to match all the other logic
 
-  bool t1Thrown = (!xcadeExpander1->gpio.digitalRead(1)) ^ t1Invert;
-  bool t2Thrown = (!xcadeExpander1->gpio.digitalRead(2)) ^ t2Invert;
-  bool t3Thrown = (!xcade->gpio.digitalRead(1)) ^ t3Invert;
-  bool t4Thrown = (!xcade->gpio.digitalRead(2)) ^ t4Invert;
-  bool t5Thrown = (!xcade->gpio.digitalRead(3)) ^ t5Invert;
+  t1Thrown = (!xcadeExpander1->gpio.digitalRead(1)) ^ t1Invert;
+  t2Thrown = (!xcadeExpander1->gpio.digitalRead(2)) ^ t2Invert;
+  t3Thrown = (!xcade->gpio.digitalRead(1)) ^ t3Invert;
+  t4Thrown = (!xcade->gpio.digitalRead(2)) ^ t4Invert;
+  t5Thrown = (!xcade->gpio.digitalRead(3)) ^ t5Invert;
 
   // Read sensors
   bool block1AOccupancy = xcade->gpio.digitalRead(SENSOR_1_PIN);
@@ -306,6 +316,20 @@ void CrossoverWithBranch::getStatusJson(JsonObject& statusResponse)
 
   mssSensorsToJson(statusResponse, xcade->gpio, "sensor1", 10);
   mssSensorsToJson(statusResponse, xcadeExpander1->gpio, "sensor2", 4);
+
+  mssTurnoutToJson(statusResponse, "to1", t1Thrown);
+  mssTurnoutToJson(statusResponse, "to2", t2Thrown);
+  mssTurnoutToJson(statusResponse, "to3", t3Thrown);
+  mssTurnoutToJson(statusResponse, "to4", t4Thrown);
+  mssTurnoutToJson(statusResponse, "to5", t5Thrown);
+
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1A, &xcade->signals.A1, &xcade->signals.A2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1B, &xcade->signals.B1, &xcade->signals.B2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1C, &xcade->signals.C1, &xcade->signals.C2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_2A, &xcadeExpander1->signals.A1, &xcadeExpander1->signals.A2, &xcadeExpander1->signals.C1);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_2B, &xcadeExpander1->signals.B1, &xcadeExpander1->signals.B2, &xcadeExpander1->signals.C2);
+
+
   return;
 }
 

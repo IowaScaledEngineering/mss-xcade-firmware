@@ -24,8 +24,10 @@ class SingleCrossover : public SignalLogic
     SignalRuleManager signalRuleManager;
     bool approachLighting;
     bool twoBlockApproach;
-    bool tACInvert;
-    bool tBDInvert;
+    bool t1Invert;
+    bool t2Invert;
+    bool turnout2Normal;
+    bool turnout1Normal;
     static const uint32_t LOOP_UPDATE_TIME_MS = 50;
 };
 

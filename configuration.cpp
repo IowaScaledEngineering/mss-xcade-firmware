@@ -12,6 +12,11 @@ bool getJsonBool(JsonDocument& doc, const char* key, bool defaultVal)
   return (signalConfig[key].is<bool>() && signalConfig[key].as<bool>());
 }
 
+float getJsonFloat(JsonDocument& doc, const char* key, float defaultVal)
+{
+  return signalConfig[key].as<float>();
+}
+
 void readSignalConfig(const char* configName)
 {
   char signalConfigFilename[STRLN_FILENAME_BUFFER];

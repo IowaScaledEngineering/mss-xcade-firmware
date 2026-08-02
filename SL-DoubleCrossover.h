@@ -29,6 +29,11 @@ class DoubleCrossover : public SignalLogic
     bool t2Invert;
     bool t3Invert;
     bool t4Invert;
+    bool turnout1Normal;
+    bool turnout2Normal;
+    bool turnout3Normal;
+    bool turnout4Normal;
+
     static const uint32_t LOOP_UPDATE_TIME_MS = 50;
 };
 

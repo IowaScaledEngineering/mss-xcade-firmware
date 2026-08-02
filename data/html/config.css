@@ -15,6 +15,21 @@
         align-items: flex-start; 
     }
 
+    /* Modifier for top-to-bottom card layout */
+    .status-card.stacked {
+        flex-direction: column;
+    }
+    .status-card.stacked .card-info-col {
+        margin-right: 0;
+        margin-bottom: 12px;
+        width: 100%;
+        border-bottom: 1px solid #eaeaea; /* Adds a nice separator line */
+        padding-bottom: 12px;
+    }
+    .status-card.stacked .kv-grid {
+        padding-top: 0;
+    }
+
     /* --- LEFT SIDE INFO --- */
     .card-info-col {
         display: flex;
@@ -58,33 +73,35 @@
         border-left: 3px solid #d32f2f;
     }
 
-    /* Right Side: The KV Grid */
     .kv-grid {
         display: grid;
-        grid-template-columns: auto auto; /* Label column, Value column */
-        column-gap: 15px;
-        row-gap: 5px;
+        grid-template-columns: 1fr auto; /* Key takes remaining space, Value hugs right */
+        gap: 8px 20px; /* Vertical gap, Horizontal gap */
+        width: 100%;
+        min-width: 200px;
         align-items: center;
+        padding-top: 5px;
     }
 
-    /* The Label (Right aligned to be close to the value) */
     .kv-key {
-        font-size: 11px;
-        font-weight: 700;
-        color: #95a5a6;
-        text-transform: uppercase;
-        text-align: right;
+        font-size: 13px;
+        font-weight: 500;
+        color: #666; /* Matches your card-desc color */
     }
 
-    /* The Value */
-    .kv-value {
+    .kv-val {
         font-size: 13px;
         font-weight: 600;
-        color: #2c3e50;
+        color: #333;
         font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
         text-align: right;
     }
 
+    .value-normal { color: #003f7d !important; }  /* Blue */
+    .value-reverse { color: #fd7702 !important; } /* Orange */
+    .value-red { color: #ff0000 !important; }  /* Red */
+    .value-yellow { color: #ff0000 !important; }  /* Red */
+    .value-green { color: #007700 !important; } /* Green */
     /* --- STATUS MATRIX STYLES --- */
     .status-matrix {
         display: grid;

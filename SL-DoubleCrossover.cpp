@@ -1,9 +1,9 @@
 #include "SL-DoubleCrossover.h"
 
-#define ID_SIGNAL_A  "sig1A"
-#define ID_SIGNAL_B  "sig1B"
-#define ID_SIGNAL_C  "sig1C"
-#define ID_SIGNAL_D  "sig1D"
+#define ID_SIGNAL_1A  "sig1A"
+#define ID_SIGNAL_1B  "sig1B"
+#define ID_SIGNAL_1C  "sig1C"
+#define ID_SIGNAL_1D  "sig1D"
 
 
 void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
@@ -11,10 +11,10 @@ void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
   Serial.printf("Starting 2xovr reconfigure()\n");
 
   // Make sure all four signal masts are registered with the rule manager
-  signalRuleManager.registerSignal(ID_SIGNAL_A);
-  signalRuleManager.registerSignal(ID_SIGNAL_B);
-  signalRuleManager.registerSignal(ID_SIGNAL_C);
-  signalRuleManager.registerSignal(ID_SIGNAL_D);
+  signalRuleManager.registerSignal(ID_SIGNAL_1A);
+  signalRuleManager.registerSignal(ID_SIGNAL_1B);
+  signalRuleManager.registerSignal(ID_SIGNAL_1C);
+  signalRuleManager.registerSignal(ID_SIGNAL_1D);
 
   // Go through all the config JSON for each signal to set up the rule manager
   // There's a better way to do this, but here's some AI slop that gets the job done
@@ -55,10 +55,10 @@ void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
   signalMastD.addSignalHeads(&xcade->signals.D1, &xcade->signals.D2);
 
   // Set signal rules for each mast
-  signalMastA.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_A), signalRuleManager.getSignalRulesLen(ID_SIGNAL_A));
-  signalMastB.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_B), signalRuleManager.getSignalRulesLen(ID_SIGNAL_B));
-  signalMastC.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_C), signalRuleManager.getSignalRulesLen(ID_SIGNAL_C));
-  signalMastD.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_D), signalRuleManager.getSignalRulesLen(ID_SIGNAL_D));
+  signalMastA.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_1A), signalRuleManager.getSignalRulesLen(ID_SIGNAL_1A));
+  signalMastB.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_1B), signalRuleManager.getSignalRulesLen(ID_SIGNAL_1B));
+  signalMastC.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_1C), signalRuleManager.getSignalRulesLen(ID_SIGNAL_1C));
+  signalMastD.setDoubleHeadRules(signalRuleManager.getSignalRules(ID_SIGNAL_1D), signalRuleManager.getSignalRulesLen(ID_SIGNAL_1D));
 
   // Set signal types
   xcade->signals.A1.setSignalHeadType(getJsonBool(signalConfig, "sig1A-searchlight-u")?SIGNAL_HEAD_SEARCHLIGHT:SIGNAL_HEAD_THREE_LIGHT);
@@ -122,10 +122,10 @@ void DoubleCrossover::loop()
   // First, read the input state from the hardware
   xcade->updateInputs();
 
-  bool turnout1Normal = xcade->gpio.digitalRead(1) ^ t1Invert;
-  bool turnout2Normal = xcade->gpio.digitalRead(2) ^ t2Invert;
-  bool turnout3Normal = xcade->gpio.digitalRead(3) ^ t3Invert;
-  bool turnout4Normal = xcade->gpio.digitalRead(4) ^ t4Invert;
+  turnout1Normal = xcade->gpio.digitalRead(1) ^ t1Invert;
+  turnout2Normal = xcade->gpio.digitalRead(2) ^ t2Invert;
+  turnout3Normal = xcade->gpio.digitalRead(3) ^ t3Invert;
+  turnout4Normal = xcade->gpio.digitalRead(4) ^ t4Invert;
 
   bool blockAOccupancy = xcade->gpio.digitalRead(SENSOR_1_PIN);
   bool blockBOccupancy = xcade->gpio.digitalRead(SENSOR_3_PIN);
@@ -250,6 +250,16 @@ void DoubleCrossover::getStatusJson(JsonObject& statusResponse)
 
   mssGPIOToJson(statusResponse, xcade->gpio, "gpio1", 4);
   mssSensorsToJson(statusResponse, xcade->gpio, "sensor1", 10);
+
+  mssTurnoutToJson(statusResponse, "to1", !turnout1Normal);
+  mssTurnoutToJson(statusResponse, "to2", !turnout2Normal);
+  mssTurnoutToJson(statusResponse, "to3", !turnout3Normal);
+  mssTurnoutToJson(statusResponse, "to4", !turnout4Normal);
+  
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1A, &xcade->signals.A1, &xcade->signals.A2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1B, &xcade->signals.B1, &xcade->signals.B2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1C, &xcade->signals.C1, &xcade->signals.C2);
+  mssSignalHeadsToJson(statusResponse, ID_SIGNAL_1D, &xcade->signals.D1, &xcade->signals.D2);
 
   return;
 }

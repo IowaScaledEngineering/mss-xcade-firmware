@@ -41,6 +41,6 @@ void configFactoryReset();
 bool configLoadConfiguration(bool forceFactoryReset);
 void displayFileTree(const char* startingDirectory="/", uint32_t levels=0);
 bool getJsonBool(JsonDocument& doc, const char* key, bool defaultVal=false);
-
+float getJsonFloat(JsonDocument& doc, const char* key, float defaultVal=0.0);
 
 #endif
