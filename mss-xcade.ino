@@ -118,6 +118,10 @@ void setup()
     activeLogic->setup(&xcade);
     activeLogic->reconfigure(signalConfig);
   }
+
+  // This defaults to a 5 second watchdog, which should be way more than enough.  If we stall that long, something
+  //  has gone horribly wrong
+  enableLoopWDT();  
 }
 
 void loop() 
