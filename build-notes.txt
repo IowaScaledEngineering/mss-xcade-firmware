@@ -1,0 +1,9 @@
+
+On windows, esptool lives here:
+C:\Users\NDHolmes\AppData\Local\Arduino15\packages\esp32\tools\esptool_py\5.3.1\esptool.exe
+
+From Arduino, do Sketch...  Export Compiled Binary and it'll create a build directory.  Create an updated littlefs file, copy it in, and then run this command in that build directory.
+C:\Users\NDHolmes\AppData\Local\Arduino15\packages\esp32\tools\esptool_py\5.3.1\esptool.exe --chip esp32s2 merge-bin -o xcade-firmware.bin --flash-mode dio --flash-freq 80m --flash-size 4MB --pad-to-size 4MB 0x1000 mss-xcade.ino.bootloader.bin 0x8000 mss-xcade.ino.partitions.bin 0xe000 boot_app0.bin 0x10000 mss-xcade.ino.bin 0x310000 littlefs.bin
+
+Here's a command line flasher command:
+C:\Users\NDHolmes\AppData\Local\Arduino15\packages\esp32\tools\esptool_py\5.3.1\esptool.exe --chip esp32s2 -p COM9 -b 460800 write-flash 0x0 xcade-firmware.bin
