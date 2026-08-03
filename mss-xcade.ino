@@ -28,10 +28,7 @@
 #include "SignalLogicRegistry.h"
 #include "webserver.h"
 #include "utilities.h"
-
-#include "SL-SingleCrossover.h"
-#include "SL-DoubleCrossover.h"
-#include "SL-CrossoverWithBranch.h"
+#include "SL-CPAnders.h"
 
 #define LOOP_UPDATE_TIME_MS 1000
 
@@ -52,9 +49,7 @@ void registerSignalLogic(SignalLogicRegistry &slr)
 {
   Serial.printf("Registering signal logic...\n");
   signalLogicRegistry.registerType(DiagnosticLogic::shortName, DiagnosticLogic::longName, []() { return std::make_unique<DiagnosticLogic>(); });
-  signalLogicRegistry.registerType(SingleCrossover::shortName, SingleCrossover::longName, []() { return std::make_unique<SingleCrossover>(); });
-  signalLogicRegistry.registerType(DoubleCrossover::shortName, DoubleCrossover::longName, []() { return std::make_unique<DoubleCrossover>(); });
-  signalLogicRegistry.registerType(CrossoverWithBranch::shortName, CrossoverWithBranch::longName, []() { return std::make_unique<CrossoverWithBranch>(); });
+  signalLogicRegistry.registerType(CPAndersLogic::shortName, CPAndersLogic::longName, []() { return std::make_unique<CPAndersLogic>(); });
 
 }
 

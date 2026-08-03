@@ -83,8 +83,10 @@ void SignalRuleManager::applyOverride(std::string_view configKey, std::string_vi
       case 1: // Divergence
         if (token == "nor")
           divMask = SignalMast::DIVMASK_NOT_DIVERGING;
+        else if (token == "slo")
+          divMask = SignalMast::DIVMASK_DIV_SLOW_SPD;
         else if (token == "div")
-          divMask = SignalMast::DIVMASK_ALL_DIVERGING;
+          divMask = SignalMast::DIVMASK_DIV_NO_SLOW;
         break;
       case 2: // Indication
         if (token == "stop") 
