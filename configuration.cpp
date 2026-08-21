@@ -79,7 +79,7 @@ void configFactoryReset()
   memset(macAddr, 0, sizeof(macAddr));
   esp_read_mac(macAddr, ESP_MAC_WIFI_STA);
   memset(ssidStr, 0, sizeof(ssidStr));
-  snprintf(ssidStr, sizeof(ssidStr), "ISE-BSC-%02X%02X%02X", macAddr[3], macAddr[4], macAddr[5]);
+  snprintf(ssidStr, sizeof(ssidStr), "ISE-BSP-%02X%02X%02X", macAddr[3], macAddr[4], macAddr[5]);
 
   newMasterConfig["name"] = ssidStr;
   newMasterConfig["activeConfig"] = "none";

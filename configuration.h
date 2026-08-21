@@ -10,7 +10,7 @@ extern volatile bool signalConfNeedsRead;
 #define SWITCH_7_FACTORY_RESET          7
 #define SWITCH_1_ENABLE_WIFI            1
 
-#define FIRMWARE_VERSION_STR            "0.0.1"
+#define FIRMWARE_VERSION_STR            "1.0.0"
 
 #define MASTER_CONFIGURATION_FILENAME   "/config.json"
 #define MASTER_CONFIG_KEY_NODE_NAME     "name"
@@ -25,6 +25,9 @@ extern volatile bool signalConfNeedsRead;
 #define URL_MAIN_CSS                    "/config.css"
 #define URL_MAIN_JAVASCRIPT             "/core.js"
 #define URL_MAIN_ISE_LOGO               "/ise.png"
+#define URL_MAIN_DOWNLOADER             "/download"
+#define URL_MAIN_UPLOADER               "/upload"
+
 
 #define URL_API_SAVEBASICCONFIG         "/api/saveBasicConfig"
 #define URL_API_SAVELOGICCONFIG         "/api/saveConfig"

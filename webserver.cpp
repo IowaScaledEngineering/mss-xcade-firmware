@@ -9,13 +9,133 @@ static AsyncWebServer server(80);
 extern volatile bool signalConfNeedsRead;
 extern SignalLogic* activeLogic;
 
+String listFiles(fs::FS &fs, const char * dirname, uint8_t levels) 
+{
+  String html = "";
+  File root = fs.open(dirname);
+  if (!root || !root.isDirectory()) 
+  {
+    return "Failed to open directory";
+  }
 
-
+  File file = root.openNextFile();
+  while (file) 
+  {
+    if (file.isDirectory()) 
+    {
+      if (levels) 
+      {
+          html += listFiles(fs, file.path(), levels - 1);
+      }
+    } else {
+      html += "<li><a href=\"/downloadFile?file=" + String(file.path()) + "\">" 
+            + String(file.path()) + "</a> (" + String(file.size()) + " bytes)</li>";
+    }
+    file = root.openNextFile();
+}
+  return html;
+}
 void webserverSetup()
 {
   server.serveStatic(URL_MAIN_CSS, LittleFS, FILE_MAIN_CSS);
   server.serveStatic(URL_MAIN_JAVASCRIPT, LittleFS, FILE_MAIN_JAVASCRIPT);
   server.serveStatic(URL_MAIN_ISE_LOGO, LittleFS, FILE_MAIN_ISE_LOGO);
+
+
+
+  // Add generic upload and download functionality
+
+  server.on("/download", HTTP_GET, [](AsyncWebServerRequest *request)
+  {
+      String html = "<html><body><h1>Files on Block Signal Pro</h1><ul>";
+      html += listFiles(LittleFS, "/", 3); // Lists up to 3 folders deep
+      html += "</ul><br><a href='/upload'>Go to Upload Page</a></body></html>";
+      request->send(200, "text/html", html);
+  });
+
+  server.on("/downloadFile", HTTP_GET, [](AsyncWebServerRequest *request)
+  {
+      if (request->hasParam("file")) 
+      {
+          String path = request->getParam("file")->value();
+          if (LittleFS.exists(path)) 
+          {
+              // The 'true' at the end forces the browser to download the file 
+              // instead of trying to display it inline.
+              request->send(LittleFS, path, String(), true);
+          } else {
+              request->send(404, "text/plain", "File not found");
+          }
+      } else {
+          request->send(400, "text/plain", "File parameter missing");
+      }
+  });
+
+  server.on("/upload", HTTP_GET, [](AsyncWebServerRequest *request){
+      String html = R"rawliteral(
+      <html><body>
+      <h1>Upload File to Block Signal Pro</h1>
+      <form id="uploadForm" enctype="multipart/form-data" method="post">
+          <label>Target Path & Filename (e.g. /myfolder/data.csv):</label><br>
+          <input type="text" id="filePath" value="/newfile.txt" size="40"><br><br>
+          <input type="file" id="fileInput" name="file"><br><br>
+          <input type="button" value="Upload" onclick="submitForm()">
+      </form>
+      <script>
+      function submitForm() {
+          var form = document.getElementById('uploadForm');
+          var path = document.getElementById('filePath').value;
+          if(!path.startsWith('/')) path = '/' + path;
+          // Append the path as a query parameter so the server sees it BEFORE the file stream
+          form.action = '/uploadFile?path=' + encodeURIComponent(path);
+          form.submit();
+      }
+      </script>
+      <br><a href="/">Back to Files</a>
+      </body></html>
+      )rawliteral";
+      
+      request->send(200, "text/html", html);
+  });
+
+
+  server.on("/uploadFile", HTTP_POST, [](AsyncWebServerRequest *request) {
+      request->send(200, "text/plain", "Upload Complete! Go back to / to see the file.");
+  }, [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+      
+      // Grab custom path from the URL parameter set by our JavaScript
+      String savePath = filename;
+      if (request->hasParam("path")) {
+          savePath = request->getParam("path")->value();
+      } else if (!savePath.startsWith("/")) {
+          savePath = "/" + savePath;
+      }
+
+      // On first chunk, open the file
+      if (!index) {
+          Serial.printf("Upload Start: %s\n", savePath.c_str());
+          File* f = new File();
+          *f = LittleFS.open(savePath, FILE_WRITE);
+          // Store the file pointer to the request object so we can access it in subsequent chunks
+          request->_tempObject = (void*)f; 
+      }
+
+      // On subsequent chunks, write the data
+      File* f = (File*)request->_tempObject;
+      if (f && *f) {
+          if (len) {
+              f->write(data, len);
+          }
+          // On final chunk, close and clean up
+          if (final) {
+              f->close();
+              delete f;
+              request->_tempObject = NULL;
+              Serial.printf("Upload End: %s, %u B\n", savePath.c_str(), index + len);
+          }
+      }
+  });
+
 
   char indexFilename[STRLN_FILENAME_BUFFER];
   snprintf(indexFilename, sizeof(indexFilename), "/html/index-%s.html", (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);
