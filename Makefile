@@ -59,7 +59,7 @@ merge: firmware fs
 		0x8000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.partitions.bin" \
 		0x10000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.bin"
 
-flash: merge
+flash:
 	@echo ""
 	@echo "***********************************"
 	@echo "  Flashing Device"
@@ -68,7 +68,7 @@ flash: merge
 	"$(ESPTOOL)" --chip esp32s2 --port $(PORT) write-flash 0x0 $(BASENAME)-upgrade.bin
 
 
-flash-full: merge
+flash-full:
 	@echo ""
 	@echo "***********************************"
 	@echo "  Flashing Device"
