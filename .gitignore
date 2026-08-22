@@ -41,4 +41,8 @@
 *.dwo
 
 release-build/*
+build/*
+*.bin
+*.elf
+*.map
 
