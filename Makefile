@@ -41,7 +41,7 @@ fs:
 	@echo "  Building default filesystem      "
 	@echo "***********************************"
 	@echo ""
-	"$(MKLITTLEFS)" -c ./data -p 256 -b 4096 -s 0xE0000 $(BASENAME)-littlefs.bin
+	"$(MKLITTLEFS)" -c ./data -p 256 -b 4096 -s 0xE0000 "$(BUILD_OUTPUT_DIR)/$(BASENAME)-littlefs.bin"
 
 merge: firmware fs
 	@echo ""
@@ -49,12 +49,12 @@ merge: firmware fs
 	@echo "  Merging firmware"
 	@echo "***********************************"
 	@echo ""
-	"$(ESPTOOL)" --chip esp32s2 merge-bin -o $(BASENAME)-full.bin --flash-mode dio --flash-freq 80m --flash-size 4MB \
+	"$(ESPTOOL)" --chip esp32s2 merge-bin -o "$(BUILD_OUTPUT_DIR)/$(BASENAME)-full.bin" --flash-mode dio --flash-freq 80m --flash-size 4MB \
 		0x1000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.bootloader.bin" \
 		0x8000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.partitions.bin" \
 		0x10000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.bin" \
-		0x310000 ./$(BASENAME)-littlefs.bin
-	"$(ESPTOOL)" --chip esp32s2 merge-bin -o $(BASENAME)-upgrade.bin --flash-mode dio --flash-freq 80m --flash-size 4MB \
+		0x310000 "$(BUILD_OUTPUT_DIR)/$(BASENAME)-littlefs.bin"
+	"$(ESPTOOL)" --chip esp32s2 merge-bin -o "$(BUILD_OUTPUT_DIR)/$(BASENAME)-upgrade.bin" --flash-mode dio --flash-freq 80m --flash-size 4MB \
 		0x1000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.bootloader.bin" \
 		0x8000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.partitions.bin" \
 		0x10000 "$(BUILD_OUTPUT_DIR)/$(BASENAME).ino.bin"
@@ -65,7 +65,7 @@ flash:
 	@echo "  Flashing Device"
 	@echo "***********************************"
 	@echo ""
-	"$(ESPTOOL)" --chip esp32s2 --port $(PORT) write-flash 0x0 $(BASENAME)-upgrade.bin
+	"$(ESPTOOL)" --chip esp32s2 --port $(PORT) write-flash 0x0 "$(BUILD_OUTPUT_DIR)/$(BASENAME)-upgrade.bin"
 
 
 flash-full:
@@ -74,9 +74,9 @@ flash-full:
 	@echo "  Flashing Device"
 	@echo "***********************************"
 	@echo ""
-	"$(ESPTOOL)" --chip esp32s2 --port $(PORT) write-flash 0x0 $(BASENAME)-full.bin
+	"$(ESPTOOL)" --chip esp32s2 --port $(PORT) write-flash 0x0 "$(BUILD_OUTPUT_DIR)/$(BASENAME)-full.bin"
 
 clean:
 	@echo "Cleaning build directory and generated binaries..."
 	rm -rf "$(BUILD_OUTPUT_DIR)"
-	rm -f $(BASENAME)-littlefs.bin $(BASENAME)-full.bin $(BASENAME)-upgrade.bin
+	
