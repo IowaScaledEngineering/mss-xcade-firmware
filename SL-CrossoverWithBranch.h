@@ -13,7 +13,7 @@ class CrossoverWithBranch : public SignalLogic
     void reconfigure(JsonDocument& signalConfig) override;
     void getStatusJson(JsonObject& statusResponse) override;
     static inline const char* shortName = "2to3";
-    static inline const char* longName = "Crossover Branch Junction";
+    static inline const char* longName = "Crossover With Branch";
     
   private:
     XCade *xcade, *xcadeExpander1;

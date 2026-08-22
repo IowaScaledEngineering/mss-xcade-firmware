@@ -125,8 +125,8 @@ void SingleCrossover::loop()
   // First, read the input state from the hardware
   xcade->updateInputs();
 
-  bool turnout2Normal = xcade->gpio.digitalRead(1) ^ t2Invert;
-  bool turnout1Normal = xcade->gpio.digitalRead(2) ^ t1Invert;
+  turnout2Normal = xcade->gpio.digitalRead(1) ^ t2Invert;
+  turnout1Normal = xcade->gpio.digitalRead(2) ^ t1Invert;
 
   bool blockAOccupancy = xcade->gpio.digitalRead(SENSOR_1_PIN);
   bool blockBOccupancy = xcade->gpio.digitalRead(SENSOR_3_PIN);
