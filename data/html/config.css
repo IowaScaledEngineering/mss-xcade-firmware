@@ -102,6 +102,15 @@
     .value-red { color: #ff0000 !important; }  /* Red */
     .value-yellow { color: #df9800 !important; }  /* Yellow */
     .value-green { color: #007700 !important; } /* Green */
+
+    @keyframes text-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+    .value-fl-red { animation: text-pulse 0.8s infinite; color: #ff0000 !important; }
+    .value-fl-yellow { animation: text-pulse 0.8s infinite; color: #df9800 !important; }
+    .value-fl-green { animation: text-pulse 0.8s infinite; color: #007700 !important; }
+
     /* --- STATUS MATRIX STYLES --- */
     .status-matrix {
         display: grid;

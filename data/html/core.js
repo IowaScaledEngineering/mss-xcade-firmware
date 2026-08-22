@@ -327,18 +327,24 @@ async function updateStatus() {
         } 
         else if (elementId.endsWith('-valuetxt'))
         {
-          element.classList.remove('value-normal', 'value-reverse', 'value-red', 'value-green', 'value-yellow');
+          element.classList.remove('value-normal', 'value-reverse', 'value-red', 'value-green', 'value-yellow', 'value-fl-red', 'value-fl-green', 'value-fl-yellow');
           if (value === 'NORMAL') {
             element.classList.add('value-normal');
           } else if (value === 'REVERSE') {
             element.classList.add('value-reverse');
-          } else if (value === 'RED' || value === 'F-RED') {
+          } else if (value === 'RED') {
             element.classList.add('value-red');
-          } else if (value === 'GRN' || value === 'F-GRN') {
+          } else if (value === 'GRN') {
             element.classList.add('value-green');
-          } else if (value === 'YLW' || value === 'F-YLW') {
+          } else if (value === 'YLW') {
             element.classList.add('value-yellow');
-          }
+          } else if (value === 'F-RED') {
+            element.classList.add('value-fl-red');
+          } else if (value === 'F-GRN') {
+            element.classList.add('value-fl-green');
+          } else if (value === 'F-YLW') {
+            element.classList.add('value-fl-yellow');
+          }          
           element.innerHTML = value;
         }
         // METHOD 2: Color Toggling (Signal Boxes)
