@@ -2,6 +2,16 @@
 
 extern XCade xcade;
 
+const char* DiagnosticLogic::getShortName()
+{
+  return this->shortName;
+}
+
+const char* DiagnosticLogic::getLongName()
+{
+  return this->longName;
+}
+
 void DiagnosticLogic::setup(XCade* xcade)
 {
   this->xcade = xcade;

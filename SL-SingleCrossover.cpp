@@ -5,6 +5,15 @@
 #define ID_SIGNAL_1C  "sig1C"
 #define ID_SIGNAL_1D  "sig1D"
 
+const char* SingleCrossover::getShortName()
+{
+  return this->shortName;
+}
+
+const char* SingleCrossover::getLongName()
+{
+  return this->longName;
+}
 
 void SingleCrossover::reconfigure(JsonDocument& signalConfig)
 {

@@ -7,7 +7,7 @@
 
 static AsyncWebServer server(80);
 extern volatile bool signalConfNeedsRead;
-extern SignalLogic* activeLogic;
+extern std::unique_ptr<SignalLogic> activeLogic;
 
 String listFiles(fs::FS &fs, const char * dirname, uint8_t levels) 
 {
@@ -35,6 +35,69 @@ String listFiles(fs::FS &fs, const char * dirname, uint8_t levels)
 }
   return html;
 }
+
+static String buildBasicConfigHtml()
+{
+  String html = "<h3>Basic Configuration</h3>";
+  html += "<div class='status-card'>";
+  html += "<div class='card-info-col'>";
+  html += "<div class='card-title'>Module Identification</div>";
+  html += "<p class='card-desc'>Iowa Scaled Engineering<br>Block Signal Custom Module</p>";
+  html += "</div>";
+  html += "<div style='text-align: right; min-width: 100px;'>";
+  html += "<div style='font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; margin-bottom: 4px;'>Firmware</div>";
+  html += "<div style='font-size: 16px; font-weight: 600; color: #333;'>";
+  html += FIRMWARE_VERSION_STR;
+  html += "</div></div></div>";
+
+  html += "<div class='control-card' id='card-module_name'>";
+  html += "<div class='card-info-col'>";
+  html += "<label for='input-module-name' class='card-title'>Module Name/SSID</label>";
+  html += "<p class='card-desc'>Device identifier for wireless configuration network</p>";
+  html += "</div>";
+  html += "<div class='control-actions'>";
+  html += "<input type='text' id='input-module-name' maxlength='32' value='";
+  html += (const char*)masterConfig[MASTER_CONFIG_KEY_NODE_NAME];
+  html += "' class='custom-input' name='name' oninput=\"this.value = this.value.replace(/[^a-zA-Z0-9 _-]/g, '')\">";
+  html += "</div></div>";
+
+  html += "<div class='control-card'>";
+  html += "<div class='card-info-col'>";
+  html += "<label for='input-signal-logic' class='card-title'>Predefined Configuration</label>";
+  html += "<p class='card-desc'>Select a preset signal logic template.</p>";
+  html += "</div>";
+  html += "<div class='vertical-actions'><div class='select-wrapper'><select id='input-signal-logic' class='custom-select' name='activeConfig'>";
+
+  const size_t logicCount = signalLogicRegistry.getNumLogicModules();
+  for (size_t i = 0; i < logicCount; ++i)
+  {
+    const char* shortName = signalLogicRegistry.getShortName(i);
+    const char* longName = signalLogicRegistry.getLongName(i);
+    const bool isCurrentlyRunning = (0 == strcmp(shortName, (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]));
+
+    html += "<option value='";
+    html += shortName;
+    if (isCurrentlyRunning)
+      html += "' selected class='current-option'>";
+    else
+      html += "'>";
+    html += longName;
+    if (isCurrentlyRunning)
+      html += " (Current)";
+    html += "</option>";
+  }
+
+  html += "</select></div></div></div>";
+  html += "<button class='submit-btn' onclick='submitBasicConfig()'>Change Configuration</button>";
+  html += "<div class='control-card' style='justify-content: center; align-items: center; padding: 25px;'>";
+  html += "<img src='ise.png' alt='ISE Electronics Made Easy' style='max-width: 100%; height: auto;'>";
+  html += "</div>";
+
+  return html;
+}
+
+
+
 void webserverSetup()
 {
   server.serveStatic(URL_MAIN_CSS, LittleFS, FILE_MAIN_CSS);
@@ -145,79 +208,24 @@ void webserverSetup()
   if (!LittleFS.exists(indexFilename))
     snprintf(indexFilename, sizeof(indexFilename), "/html/index.html");
 
-  server.serveStatic(URL_MAIN, LittleFS, indexFilename).setTemplateProcessor([](const String &var) -> String {
-    String html;
-    if (var == "BASICCONFIG")
+  server.on(URL_MAIN, HTTP_GET, [](AsyncWebServerRequest *request) {
+    char indexFilename[STRLN_FILENAME_BUFFER];
+    snprintf(indexFilename, sizeof(indexFilename), "/html/index-%s.html", (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);
+
+    if (!LittleFS.exists(indexFilename))
+      snprintf(indexFilename, sizeof(indexFilename), "/html/index.html");
+
+    File file = LittleFS.open(indexFilename, "r");
+    if (!file)
     {
-      html += R"(<h3>Basic Configuration</h3>
-      <div class="status-card">
-          <div class="card-info-col">
-              <div class="card-title">Module Identification</div>
-              <p class="card-desc">Iowa Scaled Engineering<br>Block Signal Custom Module</p>
-          </div>
-          
-          <div style="text-align: right; min-width: 100px;">
-              <div style="font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; margin-bottom: 4px;">Firmware</div>
-              <div style="font-size: 16px; font-weight: 600; color: #333;">)";
-      html += FIRMWARE_VERSION_STR;
-      html += R"(</div></div>
-      </div>
-
-      <!-- Configuration Card - Module Name -->
-      <div class='control-card warning-text'>
-          <strong>Warning: Changing basic configuration will result the node restarting</strong>
-      </div>
-
-      <div class='control-card' id='card-module_name'>
-          <div class='card-info-col'>
-              <label for='input-module-name' class='card-title'>Module Name/SSID</label>
-              <p class='card-desc'>Device identifier for wireless configuration network</p>
-          </div>
-          <div class='control-actions'>
-              <input type='text' id='input-module-name' maxlength='32' value=')";
-              
-      html += (const char *)masterConfig[MASTER_CONFIG_KEY_NODE_NAME];
-      html += R"(' maxlength='32' class='custom-input' name='name' oninput=\"this.value = this.value.replace(/[^a-zA-Z0-9 _-]/g, '')\">
-                </div>
-      </div>
-
-      <!-- Configuration Card - Logic Configuration -->
-      <div class='control-card'>
-          <div class='card-info-col'>
-              <label for='input-signal-logic' class='card-title'>Predefined Configuration</label>
-              <p class='card-desc'>Select a preset signal logic template.</p>
-          </div>
-
-          <div class='vertical-actions'>
-              <div class='select-wrapper'>
-                  <select id='input-signal-logic' class='custom-select' name='activeConfig'>)";
-
-      for (uint32_t i = 0; i<signalLogicRegistry.getNumLogicModules(); i++)
-      {
-        bool isCurrentlyRunning = (0 == strcmp(signalLogicRegistry.getShortName(i), (const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]));
-
-        html += " <option value='";
-        html += signalLogicRegistry.getShortName(i);
-        if (isCurrentlyRunning)
-          html += "' selected class='current-option'>";
-        else
-          html += "'>";
-        html += signalLogicRegistry.getLongName(i);
-        if (isCurrentlyRunning)
-          html += " (Current)";
-        html += "</option>\n";
-      }
-      html += R"(</select>
-              </div>
-          </div>
-      </div>
-      <button class='submit-btn' onclick='submitBasicConfig()'>Change Configuration</button>
-      
-      <div class='control-card' style='justify-content: center; align-items: center; padding: 25px;'>
-        <img src='ise.png' alt='ISE Electronics Made Easy' style='max-width: 100%; height: auto;'>
-      </div>)";
+      request->send(404, "text/plain", "Missing index template");
+      return;
     }
-    return html;
+
+    String html = file.readString();
+    file.close();
+    html.replace("%BASICCONFIG%", buildBasicConfigHtml());
+    request->send(200, "text/html", html);
   });
 
   // Add Handler for writing the basic node configuration - SSID & the active signal configuration
@@ -311,10 +319,15 @@ void webserverSetup()
     JsonObject jsonObj = json.as<JsonObject>();
     JsonObject responseObj = response->getRoot();
 
-    Serial.println("HTTP: API getStatus");
 
     if (NULL != activeLogic)
+    {
+      Serial.printf("HTTP: API getStatus [%s]\n", activeLogic->getShortName());
       activeLogic->getStatusJson(responseObj);
+    } else {
+      Serial.printf("HTTP: API getStatus no active logic\n");
+      responseObj["status"] = "error";
+    }
 
     response->setLength();
     request->send(response);

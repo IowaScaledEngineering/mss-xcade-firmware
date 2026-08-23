@@ -6,6 +6,16 @@
 #define ID_SIGNAL_2A  "sig2A"
 #define ID_SIGNAL_2B  "sig2B"
 
+const char* CrossoverWithBranch::getShortName()
+{
+  return this->shortName;
+}
+
+const char* CrossoverWithBranch::getLongName()
+{
+  return this->longName;
+}
+
 void CrossoverWithBranch::reconfigure(JsonDocument& signalConfig)
 {
   Serial.printf("Starting Crossover w/Branch reconfigure()\n");
