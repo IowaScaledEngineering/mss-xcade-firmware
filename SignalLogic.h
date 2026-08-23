@@ -18,7 +18,7 @@ class SignalLogic
     virtual void getStatusJson(JsonObject& statusResponse) = 0;
     virtual const char* getShortName() = 0;
     virtual const char* getLongName() = 0;
-
+    virtual void shutdown() = 0;
     static inline const char* shortName = "";
     static inline const char* longName = "";
     static const uint32_t LOOP_UPDATE_TIME_MS = 50;
@@ -33,6 +33,7 @@ class DiagnosticLogic : public SignalLogic
     void loop() override;
     void getStatusJson(JsonObject& root) override;
     void reconfigure(JsonDocument& signalConfig) override;
+    void shutdown() override;
     const char* getShortName() override;
     const char* getLongName() override;
     static inline const char* shortName = "none";

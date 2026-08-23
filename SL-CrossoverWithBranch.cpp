@@ -16,6 +16,12 @@ const char* CrossoverWithBranch::getLongName()
   return this->longName;
 }
 
+void CrossoverWithBranch::shutdown()
+{
+  // Just reinitialize the expander - we only need to clean up xcades other than the main
+  this->xcadeExpander1->begin(this->xcade, 1);
+}
+
 void CrossoverWithBranch::reconfigure(JsonDocument& signalConfig)
 {
   Serial.printf("Starting Crossover w/Branch reconfigure()\n");

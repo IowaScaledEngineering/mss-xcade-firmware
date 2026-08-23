@@ -8,6 +8,7 @@
 static AsyncWebServer server(80);
 extern volatile bool signalConfNeedsRead;
 extern std::unique_ptr<SignalLogic> activeLogic;
+extern volatile bool signalLogicNeedsReload;
 
 String listFiles(fs::FS &fs, const char * dirname, uint8_t levels) 
 {
@@ -250,9 +251,10 @@ void webserverSetup()
       File masterConfigFile = LittleFS.open(MASTER_CONFIGURATION_FILENAME, "w");
       serializeJson(jsonObj, masterConfigFile);
       masterConfigFile.close();
+      masterConfig[MASTER_CONFIG_KEY_NODE_NAME] = jsonObj[MASTER_CONFIG_KEY_NODE_NAME];
+      masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG] = jsonObj[MASTER_CONFIG_KEY_ACTIVE_CONFIG];
+      signalLogicNeedsReload = true;
       request->send(200, "application/json", "{\"status\":\"ok\"}");
-      sys_delay_ms(100);
-      ESP.restart();
     }
     else
       request->send(400, "application/json", "{\"status\":\"error\"}");

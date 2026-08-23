@@ -6,6 +6,7 @@
 extern JsonDocument masterConfig;
 extern JsonDocument signalConfig;
 extern volatile bool signalConfNeedsRead;
+extern volatile bool signalLogicNeedsReload;
 
 #define SWITCH_7_FACTORY_RESET          7
 #define SWITCH_1_ENABLE_WIFI            1

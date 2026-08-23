@@ -14,6 +14,7 @@ class DoubleCrossover : public SignalLogic
     void getStatusJson(JsonObject& statusResponse) override;
     const char* getShortName() override;
     const char* getLongName() override;
+    void shutdown() override;
     static inline const char* shortName = "2xovr";
     static inline const char* longName = "Double Crossover";
     

@@ -6,6 +6,7 @@
 JsonDocument masterConfig;
 JsonDocument signalConfig;
 volatile bool signalConfNeedsRead = false;
+volatile bool signalLogicNeedsReload = false;
 
 bool getJsonBool(JsonDocument& doc, const char* key, bool defaultVal)
 {

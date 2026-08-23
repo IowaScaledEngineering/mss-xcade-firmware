@@ -15,6 +15,10 @@ const char* SingleCrossover::getLongName()
   return this->longName;
 }
 
+void SingleCrossover::shutdown()
+{
+}
+
 void SingleCrossover::reconfigure(JsonDocument& signalConfig)
 {
   Serial.printf("Starting 1xovr reconfigure()\n");

@@ -15,6 +15,10 @@ const char* DoubleCrossover::getLongName()
   return this->longName;
 }
 
+void DoubleCrossover::shutdown()
+{
+}
+
 void DoubleCrossover::reconfigure(JsonDocument& signalConfig)
 {
   Serial.printf("Starting 2xovr reconfigure()\n");

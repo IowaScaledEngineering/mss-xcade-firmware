@@ -131,7 +131,26 @@ void loop()
   static bool ledState = false;
 
   // If the webserver has indicated that we need a reload of signal logic parameters, do a reload and clear the flag
-  if (signalConfNeedsRead)
+  if (signalLogicNeedsReload)
+  {
+    signalLogicNeedsReload = false;
+    readSignalConfig((const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);
+
+    std::unique_ptr<SignalLogic> newLogic = signalLogicRegistry.create(masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);
+    if (nullptr != newLogic)
+    {
+      activeLogic->shutdown();  
+
+      // Reset the xcade hardware to a known state, then reinitialize it with the new logic
+      xcade.begin(&wireMux);
+      primeDebouncer(xcade);
+
+      newLogic->setup(&xcade);
+      newLogic->reconfigure(signalConfig);
+      activeLogic = std::move(newLogic);
+    }
+  }
+  else if (signalConfNeedsRead)
   {
     // Now, reinitialize the signal logic with the new values
     readSignalConfig((const char*)masterConfig[MASTER_CONFIG_KEY_ACTIVE_CONFIG]);

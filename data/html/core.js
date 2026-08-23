@@ -177,7 +177,7 @@ function applyConfigToForm(data, tabContainerId) {
 
 async function submitBasicConfig() {
   // 1. Confirmation Dialog
-  const confirmed = confirm("Are you sure you want to change the configuration? The node will restart.");
+  const confirmed = confirm("Are you sure you want to change the configuration?");
   if (!confirmed) {
     return; // Stop if user clicks Cancel
   }
@@ -221,9 +221,8 @@ async function submitBasicConfig() {
 
     // 5. Handle Response
     if (response.ok) {
-      alert("Configuration saved! Restarting...");
-      // Optional: reload page
-      // location.reload(); 
+      alert("Configuration saved!");
+      setTimeout(() => location.reload(), 250);
     } else {
       alert("Error saving: " + response.status);
     }

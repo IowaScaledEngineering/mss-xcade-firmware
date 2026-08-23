@@ -14,6 +14,7 @@ class CrossoverWithBranch : public SignalLogic
     void getStatusJson(JsonObject& statusResponse) override;
     const char* getShortName() override;
     const char* getLongName() override;
+    void shutdown() override;
     static inline const char* shortName = "2to3";
     static inline const char* longName = "Crossover With Branch";
     

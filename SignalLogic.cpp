@@ -12,6 +12,20 @@ const char* DiagnosticLogic::getLongName()
   return this->longName;
 }
 
+void DiagnosticLogic::shutdown()
+{
+  SignalAspect_t aspect  = ASPECT_OFF;
+  xcade->signals.A1.setAspect((SignalAspect_t)aspect);
+  xcade->signals.B1.setAspect((SignalAspect_t)aspect);
+  xcade->signals.C1.setAspect((SignalAspect_t)aspect);
+  xcade->signals.D1.setAspect((SignalAspect_t)aspect);
+  xcade->signals.A2.setAspect((SignalAspect_t)aspect);
+  xcade->signals.B2.setAspect((SignalAspect_t)aspect);
+  xcade->signals.C2.setAspect((SignalAspect_t)aspect);
+  xcade->signals.D2.setAspect((SignalAspect_t)aspect);
+  xcade->updateOutputs();
+}
+
 void DiagnosticLogic::setup(XCade* xcade)
 {
   this->xcade = xcade;
